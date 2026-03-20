@@ -1,1191 +1,1917 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AxisMED — Biomedical Innovation Incubator at UIUC</title>
-  <style>
-    /* ─── RESET & VARIABLES ─── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --navy:     #0D1B2A;
-      --teal:     #00A896;
-      --teal-lt:  #02C39A;
-      --sky:      #E8F4F8;
-      --white:    #FFFFFF;
-      --gray-100: #F5F7FA;
-      --gray-200: #E9ECF0;
-      --gray-500: #6B7280;
-      --gray-700: #374151;
-      --gray-900: #111827;
-      --accent:   #F97316;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AxisMED — Biomedical Innovation Incubator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0B1629;
+  --navy2:   #112240;
+  --navy3:   #1a2f4e;
+  --indigo:  #3D3B6E;
+  --teal:    #00A896;
+  --teal-lt: #02C39A;
+  --teal-dk: #00837A;
+  --white:   #FFFFFF;
+  --gray-50: #F8FAFC;
+  --gray-100:#F1F5F9;
+  --gray-300:#CBD5E1;
+  --gray-500:#64748B;
+  --gray-700:#334155;
+  --gold:    #F59E0B;
+  --rose:    #BE123C;
+  --radius:  12px;
+  --radius-lg:20px;
+  --shadow:  0 4px 24px rgba(0,0,0,0.12);
+  --shadow-lg:0 8px 48px rgba(0,0,0,0.2);
+  --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--white);
+  color: var(--gray-700);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; border: none; outline: none; }
 
-      --font-head: 'Georgia', serif;
-      --font-body: 'Trebuchet MS', 'Segoe UI', sans-serif;
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
 
-      --radius: 12px;
-      --shadow: 0 4px 24px rgba(0,0,0,.08);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,.14);
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      color: var(--gray-900);
-      background: var(--white);
-      line-height: 1.6;
-    }
-    img { max-width: 100%; display: block; }
-    a { text-decoration: none; }
+/* ─── UTILITY ─── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 96px 0; }
+.section-dark { background: var(--navy); color: var(--white); }
+.section-dim { background: var(--navy2); color: var(--white); }
+.section-light { background: var(--gray-50); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 16px;
+}
+.eyebrow::before {
+  content: ''; display: block;
+  width: 24px; height: 2px; background: var(--teal);
+}
+.section-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400; line-height: 1.15;
+  color: var(--navy); margin-bottom: 20px;
+}
+.section-title.light { color: var(--white); }
+.section-sub {
+  font-size: 17px; color: var(--gray-500); max-width: 560px;
+  line-height: 1.7;
+}
+.section-sub.light { color: var(--gray-300); }
+.chip {
+  display: inline-block; padding: 4px 12px; border-radius: 100px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--teal); color: var(--white);
+}
+.btn-primary:hover { background: var(--teal-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,168,150,0.35); }
+.btn-outline {
+  background: transparent; color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.35);
+}
+.btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+.btn-ghost {
+  background: rgba(255,255,255,0.08); color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.14); border-color: var(--teal-lt); }
+.btn-dark {
+  background: var(--navy); color: var(--white);
+}
+.btn-dark:hover { background: var(--navy2); transform: translateY(-2px); }
+.fade-up {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* ─── UTILITY ─── */
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-    .section { padding: 96px 0; }
-    .section--dark { background: var(--navy); color: var(--white); }
-    .section--sky  { background: var(--sky); }
-    .section--gray { background: var(--gray-100); }
-    .label {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 12px;
-    }
-    .label--white { color: var(--teal-lt); }
-    h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
-    h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); }
-    h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
-    h3 { font-size: 1.3rem; }
-    .btn {
-      display: inline-block;
-      padding: 14px 30px;
-      border-radius: 50px;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-    .btn--teal { background: var(--teal); color: #fff; }
-    .btn--outline { border: 2px solid var(--teal); color: var(--teal); }
-    .btn--outline-white { border: 2px solid #fff; color: #fff; }
+/* ─── NAV ─── */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 24px; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(11, 22, 41, 0.92);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: box-shadow var(--transition);
+}
+#nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.3); }
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-text {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; font-weight: 400; letter-spacing: 1px;
+  color: var(--white);
+}
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7);
+  transition: color var(--transition); letter-spacing: 0.3px;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--teal-lt); }
+.nav-cta { margin-left: 16px; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: rgba(255,255,255,0.8); border-radius: 2px;
+  transition: all var(--transition);
+}
+.mobile-menu {
+  display: none; position: fixed; top: 68px; left: 0; right: 0;
+  background: var(--navy); z-index: 999; padding: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-direction: column; gap: 8px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  padding: 12px 0; font-size: 15px; font-weight: 500;
+  color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color var(--transition);
+}
+.mobile-menu a:hover { color: var(--teal-lt); }
 
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(13,27,42,.96);
-      backdrop-filter: blur(12px);
-      padding: 0 24px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-    .nav-inner {
-      max-width: 1120px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-    }
-    .nav-logo {
-      font-family: var(--font-head);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -.02em;
-    }
-    .nav-logo span { color: var(--teal); }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      color: rgba(255,255,255,.78);
-      font-size: .9rem;
-      font-weight: 600;
-      letter-spacing: .02em;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--teal-lt); }
-    .nav-cta { margin-left: 24px; }
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh; background: var(--navy);
+  display: flex; align-items: center; position: relative; overflow: hidden;
+  padding-top: 68px;
+}
+.hero-bg {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,168,150,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,168,150,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+}
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(61,59,110,0.35) 0%, transparent 70%);
+  top: -100px; right: -100px; pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,168,150,0.15) 0%, transparent 70%);
+  bottom: 0; left: 10%; pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  align-items: center; max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(61,59,110,0.4); border: 1px solid rgba(61,59,110,0.6);
+  color: var(--teal-lt); padding: 6px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+  margin-bottom: 28px; backdrop-filter: blur(8px);
+}
+.hero-badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal-lt); animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+.hero-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(40px, 5vw, 64px); line-height: 1.08;
+  color: var(--white); margin-bottom: 24px; font-weight: 400;
+}
+.hero-title em {
+  font-style: italic; color: var(--teal-lt);
+}
+.hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.6);
+  line-height: 1.75; margin-bottom: 40px; max-width: 480px;
+}
+.hero-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.hero-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 48px;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 20px 24px;
+  backdrop-filter: blur(8px);
+  transition: border-color var(--transition), transform var(--transition);
+}
+.hero-stat:hover { border-color: rgba(0,168,150,0.4); transform: translateY(-3px); }
+.hero-stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px; color: var(--teal-lt); line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-label {
+  font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.hero-visual {
+  position: relative; width: 100%; min-height: 420px;
+  border-radius: 24px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+#hero-canvas {
+  width: 100%; height: 100%; display: block;
+  border-radius: 24px;
+}
 
-    /* ─── HERO ─── */
-    .hero {
-      background: var(--navy);
-      padding: 180px 0 120px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,168,150,.22) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-    .hero-eyebrow {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 20px;
-    }
-    .hero-eyebrow .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50% { opacity: .5; transform: scale(1.3); }
-    }
-    .hero-eyebrow span {
-      font-size: .82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--teal-lt);
-    }
-    .hero h1 { color: #fff; margin-bottom: 24px; }
-    .hero h1 em { color: var(--teal-lt); font-style: normal; }
-    .hero p {
-      color: rgba(255,255,255,.72);
-      font-size: 1.1rem;
-      max-width: 480px;
-      margin-bottom: 36px;
-    }
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .stat-card {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      text-align: center;
-      backdrop-filter: blur(4px);
-    }
-    .stat-num {
-      font-family: var(--font-head);
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--teal-lt);
-      line-height: 1;
-    }
-    .stat-label {
-      margin-top: 6px;
-      font-size: .82rem;
-      color: rgba(255,255,255,.6);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
+/* ─── LOGOS BAR ─── */
+#logos-bar {
+  background: var(--navy2); padding: 28px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.logos-inner {
+  display: flex; align-items: center; justify-content: center;
+  gap: 48px; flex-wrap: wrap;
+}
+.logos-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+  white-space: nowrap;
+}
+.logos-items {
+  display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+}
+.logos-item {
+  font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.45); letter-spacing: 0.3px;
+  transition: color var(--transition);
+}
+.logos-item:hover { color: rgba(255,255,255,0.8); }
 
-    /* ─── LOGOS BAR ─── */
-    .logos-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-200);
-      padding: 32px 0;
-    }
-    .logos-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-    }
-    .logo-item {
-      font-size: .8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--gray-500);
-    }
-    .logos-label {
-      font-size: .8rem;
-      color: var(--gray-500);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-right: 8px;
-    }
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px;
+  align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-card-stack {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.about-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 24px 28px; box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex; gap: 16px; align-items: flex-start;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.about-card:hover { transform: translateX(6px); box-shadow: var(--shadow-lg); }
+.about-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.about-card-body h4 {
+  font-size: 15px; font-weight: 700; color: var(--navy);
+  margin-bottom: 4px;
+}
+.about-card-body p {
+  font-size: 13px; color: var(--gray-500); line-height: 1.6;
+}
+.about-origin {
+  margin-top: 32px; padding: 20px 24px;
+  background: var(--navy); border-radius: var(--radius);
+  border-left: 3px solid var(--teal);
+}
+.about-origin p {
+  font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.7;
+}
+.about-origin strong { color: var(--teal-lt); font-weight: 600; }
+.about-text p {
+  font-size: 16px; color: var(--gray-500); line-height: 1.8;
+  margin-bottom: 20px;
+}
+.about-pillars {
+  display: flex; flex-direction: column; gap: 12px; margin-top: 28px;
+}
+.about-pillar {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--gray-700); font-weight: 500;
+}
+.about-pillar-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--teal); flex-shrink: 0;
+}
 
-    /* ─── MISSION ─── */
-    .mission-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .mission-visual {
-      position: relative;
-    }
-    .mission-card-stack {
-      display: grid;
-      gap: 16px;
-    }
-    .mc {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      box-shadow: var(--shadow);
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-    }
-    .mc-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-    }
-    .mc-icon--blue  { background: #DBEAFE; }
-    .mc-icon--green { background: #D1FAE5; }
-    .mc-icon--purple{ background: #EDE9FE; }
-    .mc h4 { font-size: .95rem; margin-bottom: 4px; color: var(--gray-900); }
-    .mc p { font-size: .83rem; color: var(--gray-500); }
+/* ─── CURRICULUM ─── */
+.curriculum-intro {
+  text-align: center; max-width: 640px; margin: 0 auto 64px;
+}
+.curriculum-intro .section-sub { margin: 0 auto; }
+.dr-track {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0; position: relative; margin-top: 16px;
+}
+.dr-connector {
+  position: absolute; top: 56px; left: 10%; right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal) 0%, var(--teal-lt) 100%);
+  z-index: 0;
+}
+.dr-card {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0 12px;
+}
+.dr-circle {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--navy); border: 2px solid var(--teal);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px; font-weight: 400; color: var(--teal-lt);
+  margin-bottom: 20px; position: relative; z-index: 2;
+  transition: all var(--transition); cursor: default;
+}
+.dr-card:hover .dr-circle {
+  background: var(--teal); color: var(--white); transform: scale(1.1);
+  border-color: var(--teal-lt); box-shadow: 0 0 0 8px rgba(0,168,150,0.12);
+}
+.dr-month {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 6px;
+}
+.dr-title {
+  font-size: 13px; font-weight: 700; color: var(--navy);
+  text-align: center; margin-bottom: 12px; line-height: 1.3;
+}
+.dr-bullets {
+  list-style: none; display: flex; flex-direction: column; gap: 6px;
+  width: 100%;
+}
+.dr-bullets li {
+  font-size: 11.5px; color: var(--gray-500); padding-left: 14px; position: relative;
+  line-height: 1.4;
+}
+.dr-bullets li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--teal); font-size: 10px;
+}
 
-    /* ─── MODEL (HOW IT WORKS) ─── */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 24px;
-      position: relative;
-    }
-    .steps-grid::before {
-      content: '';
-      position: absolute;
-      top: 36px; left: 60px; right: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-lt) 100%);
-      z-index: 0;
-    }
-    .step {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
-    .step-num {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      background: var(--teal);
-      color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-head);
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin: 0 auto 16px;
-      box-shadow: 0 0 0 6px rgba(0,168,150,.15);
-    }
-    .step h4 { font-size: .92rem; margin-bottom: 6px; }
-    .step p { font-size: .8rem; color: var(--gray-500); }
+/* ─── IMPACT ─── */
+.impact-top {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+  margin-bottom: 48px;
+}
+.kpi-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 24px 20px;
+  border-top: 3px solid var(--teal);
+  transition: all var(--transition);
+}
+.kpi-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-top-color: var(--teal-lt); transform: translateY(-4px);
+}
+.kpi-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px; color: var(--teal-lt); line-height: 1;
+  margin-bottom: 6px;
+}
+.kpi-label {
+  font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 2px;
+}
+.kpi-sub { font-size: 11px; color: rgba(255,255,255,0.4); }
+.awards-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.award-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 28px;
+  display: flex; gap: 18px;
+  transition: all var(--transition);
+}
+.award-card:hover {
+  background: rgba(255,255,255,0.07); transform: translateY(-3px);
+  border-color: rgba(0,168,150,0.3);
+}
+.award-icon { font-size: 32px; line-height: 1; flex-shrink: 0; }
+.award-body h4 {
+  font-size: 15px; font-weight: 700; color: var(--white);
+  margin-bottom: 6px;
+}
+.award-body p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
 
-    /* ─── IMPACT STATS ─── */
-    .impact-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      background: rgba(255,255,255,.06);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-top: 56px;
-    }
-    .impact-item {
-      background: rgba(255,255,255,.04);
-      padding: 40px 24px;
-      text-align: center;
-    }
-    .impact-num {
-      font-family: var(--font-head);
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--teal-lt);
-      line-height: 1;
-    }
-    .impact-label {
-      margin-top: 10px;
-      font-size: .85rem;
-      color: rgba(255,255,255,.65);
-      line-height: 1.4;
-    }
+/* ─── PORTFOLIO ─── */
+.portfolio-tabs {
+  display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 10px 22px; border-radius: 100px;
+  font-size: 13px; font-weight: 600;
+  border: 1.5px solid var(--gray-300);
+  background: transparent; color: var(--gray-500);
+  transition: all var(--transition);
+}
+.tab-btn.active {
+  background: var(--navy); color: var(--white);
+  border-color: var(--navy);
+}
+.tab-btn:hover:not(.active) {
+  border-color: var(--teal); color: var(--teal);
+}
+.cohort-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.cohort-panel { display: none; }
+.cohort-panel.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.team-card {
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--gray-100);
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: all var(--transition);
+  display: flex; flex-direction: column;
+}
+.team-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow-lg);
+  border-color: rgba(0,168,150,0.2);
+}
+.team-card-top {
+  height: 5px;
+}
+.team-card-body { padding: 20px 22px; flex: 1; }
+.team-vertical {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.team-name {
+  font-size: 16px; font-weight: 700; color: var(--navy);
+  margin-bottom: 8px; line-height: 1.3;
+}
+.team-desc {
+  font-size: 13px; color: var(--gray-500); line-height: 1.6;
+  margin-bottom: 12px;
+}
+.team-leader {
+  font-size: 11.5px; font-weight: 600; color: var(--teal-dk);
+  border-top: 1px solid var(--gray-100); padding-top: 12px; margin-top: auto;
+}
 
-    /* ─── TEAMS / PORTFOLIO ─── */
-    .portfolio-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 48px;
-    }
-    .tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .tab {
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-size: .82rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: 2px solid var(--gray-200);
-      color: var(--gray-700);
-      background: var(--white);
-      transition: all .2s;
-    }
-    .tab.active, .tab:hover {
-      background: var(--teal);
-      border-color: var(--teal);
-      color: #fff;
-    }
-    .teams-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .team-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      border: 1px solid var(--gray-200);
-      padding: 28px 24px;
-      box-shadow: var(--shadow);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-    .team-tag {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: .72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .07em;
-      margin-bottom: 12px;
-    }
-    .tag--teal    { background: #CCFBF1; color: #0D9488; }
-    .tag--blue    { background: #DBEAFE; color: #1D4ED8; }
-    .tag--purple  { background: #EDE9FE; color: #6D28D9; }
-    .tag--rose    { background: #FFE4E6; color: #BE123C; }
-    .tag--amber   { background: #FEF3C7; color: #92400E; }
-    .tag--green   { background: #D1FAE5; color: #065F46; }
-    .tag--indigo  { background: #E0E7FF; color: #3730A3; }
-    .tag--sky     { background: #E0F2FE; color: #0369A1; }
-    .team-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .team-card p { font-size: .83rem; color: var(--gray-500); line-height: 1.5; }
-    .team-cohort {
-      margin-top: 16px;
-      font-size: .75rem;
-      color: var(--gray-500);
-      font-weight: 600;
-    }
-    .award-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 8px;
-      padding: 3px 10px;
-      border-radius: 50px;
-      background: #FEF3C7;
-      color: #92400E;
-      font-size: .72rem;
-      font-weight: 700;
-    }
+/* ─── VERTICALS ─── */
+.verticals-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.vertical-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 24px; border: 1px solid var(--gray-100);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: all var(--transition);
+  border-top: 4px solid transparent;
+}
+.vertical-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow);
+}
+.vertical-count {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px; font-weight: 400; margin-bottom: 4px;
+}
+.vertical-name {
+  font-size: 14px; font-weight: 700; color: var(--navy);
+  margin-bottom: 8px;
+}
+.vertical-desc {
+  font-size: 12px; color: var(--gray-500); line-height: 1.6;
+}
 
-    /* ─── VERTICALS MAP ─── */
-    .verticals-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-top: 48px;
-    }
-    .vertical-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 28px 20px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      border-top: 4px solid var(--teal);
-    }
-    .vertical-icon { font-size: 2.2rem; margin-bottom: 12px; }
-    .vertical-card h4 { font-size: .95rem; margin-bottom: 6px; }
-    .vertical-card p { font-size: .78rem; color: var(--gray-500); }
-    .vertical-count {
-      display: inline-block;
-      margin-top: 12px;
-      background: var(--sky);
-      color: var(--teal);
-      font-size: .78rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 50px;
-    }
+/* ─── LEADERSHIP ─── */
+.leadership-tier {
+  margin-bottom: 48px;
+}
+.leadership-tier-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gray-500);
+  padding-bottom: 16px; border-bottom: 1px solid var(--gray-100);
+  margin-bottom: 20px;
+}
+.leadership-tier-row {
+  display: flex; flex-wrap: wrap; gap: 20px; justify-content: flex-start;
+}
+.leadership-tier-row.tier-top {
+  justify-content: center; gap: 24px;
+}
+.leader-card {
+  background: var(--white); border: 1px solid var(--gray-100);
+  border-radius: var(--radius); padding: 24px 20px; text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: all var(--transition);
+  flex: 0 0 180px; min-width: 160px;
+}
+.leader-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow);
+  border-color: rgba(0,168,150,0.25);
+}
+.leader-card.faculty { border-top: 3px solid var(--gold); }
+.leader-card.president { border-top: 3px solid var(--teal); }
+.leader-card.emeritus { border-top: 3px solid rgba(61,59,110,0.6); }
+.leader-card.director { border-top: 3px solid var(--teal); }
+.leader-card.associate { border-top: 3px solid var(--gray-300); }
+.leader-avatar {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--indigo) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; color: var(--teal-lt);
+  margin: 0 auto 14px;
+}
+.leader-name {
+  font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px;
+}
+.leader-role {
+  font-size: 11.5px; color: var(--gray-500); font-weight: 500;
+  line-height: 1.4;
+}
 
-    /* ─── PROCESS / HOW TO JOIN ─── */
-    .process-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .process-steps { display: flex; flex-direction: column; gap: 24px; }
-    .ps {
-      display: flex;
-      gap: 20px;
-    }
-    .ps-num {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      border: 2px solid var(--teal);
-      color: var(--teal);
-      font-weight: 700;
-      font-size: .95rem;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .ps-content h4 { margin-bottom: 6px; }
-    .ps-content p { font-size: .85rem; color: var(--gray-500); }
-    .join-card {
-      background: var(--navy);
-      border-radius: var(--radius);
-      padding: 40px;
-      color: #fff;
-    }
-    .join-card h3 { font-size: 1.5rem; margin-bottom: 16px; }
-    .join-card p { color: rgba(255,255,255,.7); margin-bottom: 24px; }
-    .join-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-    .join-option {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 10px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .join-option-icon { font-size: 1.4rem; }
-    .join-option-text h5 { font-size: .9rem; color: #fff; margin-bottom: 2px; }
-    .join-option-text p { font-size: .78rem; color: rgba(255,255,255,.55); }
+/* ─── JOIN / CTA ─── */
+#join { background: var(--navy); }
+.join-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: start;
+}
+.join-steps {
+  display: flex; flex-direction: column; gap: 24px; margin-top: 32px;
+}
+.join-step {
+  display: flex; gap: 16px;
+}
+.join-step-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--teal); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px; flex-shrink: 0;
+}
+.join-step-body h4 {
+  font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px;
+}
+.join-step-body p {
+  font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;
+}
+.join-cards {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.join-option {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 28px;
+  transition: all var(--transition);
+}
+.join-option:hover {
+  background: rgba(255,255,255,0.07); border-color: rgba(0,168,150,0.3);
+}
+.join-option h4 {
+  font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 8px;
+}
+.join-option p {
+  font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 20px;
+}
+.join-option-btns {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
 
-    /* ─── PARTNERS ─── */
-    .partners-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 48px;
-    }
-    .partner-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--gray-200);
-    }
-    .partner-card h4 { font-size: .95rem; margin-bottom: 6px; color: var(--gray-900); }
-    .partner-card p { font-size: .82rem; color: var(--gray-500); }
+/* ─── PARTNERS ─── */
+.partners-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.partner-card {
+  background: var(--white); border: 1px solid var(--gray-100);
+  border-radius: var(--radius); padding: 24px 28px;
+  text-align: center;
+  transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.partner-card:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow);
+  border-color: rgba(0,168,150,0.2);
+}
+.partner-name {
+  font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px;
+}
+.partner-sub {
+  font-size: 12px; color: var(--gray-500);
+}
 
-    /* ─── LEADERSHIP ─── */
-    .leadership-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      margin-top: 48px;
-    }
-    .leader-card {
-      text-align: center;
-    }
-    .leader-avatar {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal), var(--navy));
-      margin: 0 auto 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-head);
-      font-size: 1.6rem;
-      color: #fff;
-      font-weight: 700;
-    }
-    .leader-card h4 { font-size: .95rem; margin-bottom: 4px; }
-    .leader-card p { font-size: .8rem; color: var(--teal); font-weight: 600; }
+/* ─── FOOTER ─── */
+footer {
+  background: var(--navy); color: rgba(255,255,255,0.7);
+  padding: 64px 0 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand img {
+  height: 40px; filter: brightness(0) invert(1); margin-bottom: 16px;
+}
+.footer-brand p {
+  font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.45);
+  max-width: 260px; margin-bottom: 20px;
+}
+.footer-socials {
+  display: flex; gap: 10px;
+}
+.footer-social {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 700;
+  transition: all var(--transition); text-decoration: none;
+}
+.footer-social:hover {
+  background: var(--teal); border-color: var(--teal); color: var(--white);
+}
+.footer-col h5 {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(255,255,255,0.9);
+  margin-bottom: 18px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 13px; color: rgba(255,255,255,0.45);
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--teal-lt); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 28px; flex-wrap: gap;
+}
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.3); }
+.footer-note {
+  font-size: 11px; color: rgba(255,255,255,0.25); font-style: italic;
+}
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--navy);
-      color: rgba(255,255,255,.65);
-      padding: 64px 0 40px;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 48px;
-    }
-    .footer-brand h4 {
-      font-family: var(--font-head);
-      font-size: 1.4rem;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-    .footer-brand h4 span { color: var(--teal-lt); }
-    .footer-brand p { font-size: .85rem; line-height: 1.6; max-width: 280px; }
-    .footer-col h5 {
-      color: #fff; font-size: .85rem;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-bottom: 16px;
-    }
-    .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: 8px; }
-    .footer-col a { color: rgba(255,255,255,.55); font-size: .85rem; transition: color .2s; }
-    .footer-col a:hover { color: var(--teal-lt); }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: .8rem;
-    }
-    .footer-bottom a { color: var(--teal-lt); }
+/* ─── MODAL ─── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 2000;
+  background: rgba(8, 16, 32, 0.85); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: var(--radius-lg);
+  max-width: 520px; width: 100%; position: relative;
+  overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  animation: modal-in 0.32s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.9) translateY(24px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-header {
+  background: var(--navy); padding: 32px 36px 28px;
+  border-bottom: 3px solid var(--teal);
+}
+.modal-header h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px; color: var(--white); margin-bottom: 6px;
+}
+.modal-header p { font-size: 13px; color: rgba(255,255,255,0.55); }
+.modal-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: none;
+  color: var(--white); font-size: 18px; font-weight: 300;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background var(--transition);
+  line-height: 1;
+}
+.modal-close:hover { background: rgba(255,255,255,0.22); }
+.modal-status {
+  padding: 20px 36px;
+  background: linear-gradient(135deg, #FFF8E7 0%, #FFFBF0 100%);
+  border-bottom: 1px solid #FDE68A;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.status-icon {
+  font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px;
+}
+.status-text h4 {
+  font-size: 14px; font-weight: 700; color: #92400E; margin-bottom: 3px;
+}
+.status-text p {
+  font-size: 12.5px; color: #78350F; line-height: 1.5;
+}
+.modal-body { padding: 28px 36px 32px; }
+.modal-body p {
+  font-size: 14px; color: var(--gray-500); margin-bottom: 22px; line-height: 1.6;
+}
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: var(--gray-700); margin-bottom: 6px; letter-spacing: 0.3px;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--gray-300); border-radius: 8px;
+  font-size: 14px; font-family: inherit; color: var(--gray-700);
+  background: var(--white);
+  transition: border-color var(--transition);
+  outline: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(0,168,150,0.1);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-submit {
+  width: 100%; padding: 14px;
+  background: var(--teal); color: var(--white);
+  border: none; border-radius: 8px;
+  font-size: 15px; font-weight: 700; font-family: inherit;
+  cursor: pointer; margin-top: 8px;
+  transition: background var(--transition), transform var(--transition);
+}
+.form-submit:hover { background: var(--teal-lt); transform: translateY(-1px); }
+.form-note {
+  font-size: 11px; color: var(--gray-500); text-align: center;
+  margin-top: 12px; line-height: 1.5;
+}
+.advisor-modal .modal-header { border-bottom-color: var(--indigo); }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .hero-grid, .mission-grid, .process-grid { grid-template-columns: 1fr; gap: 40px; }
-      .steps-grid { grid-template-columns: 1fr 1fr; }
-      .steps-grid::before { display: none; }
-      .impact-grid { grid-template-columns: 1fr 1fr; }
-      .teams-grid { grid-template-columns: 1fr 1fr; }
-      .verticals-grid { grid-template-columns: 1fr 1fr; }
-      .partners-grid { grid-template-columns: 1fr 1fr; }
-      .leadership-grid { grid-template-columns: 1fr 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .nav-links, .nav-cta { display: none; }
-    }
-    @media (max-width: 600px) {
-      .teams-grid, .impact-grid, .verticals-grid, .partners-grid, .leadership-grid { grid-template-columns: 1fr; }
-      .hero { padding: 140px 0 80px; }
-    }
-  </style>
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { min-height: 260px; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .section { padding: 64px 0; }
+  .dr-track { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .dr-connector { display: none; }
+  .impact-top { grid-template-columns: repeat(2, 1fr); }
+  .cohort-panel.active { grid-template-columns: 1fr 1fr; }
+  .verticals-grid { grid-template-columns: repeat(2, 1fr); }
+  .partners-grid { grid-template-columns: 1fr 1fr; }
+  .awards-row { grid-template-columns: 1fr; }
+  .join-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .leadership-tier-row { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .impact-top { grid-template-columns: repeat(2, 1fr); }
+  .cohort-panel.active { grid-template-columns: 1fr; }
+  .verticals-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
 </head>
 <body>
 
-<!-- ─── NAVIGATION ─── -->
-<nav>
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">Axis<span>MED</span></a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#model">Our Model</a></li>
-      <li><a href="#teams">Teams</a></li>
-      <li><a href="#impact">Impact</a></li>
-      <li><a href="#join">Get Involved</a></li>
-      <li><a href="#partners">Partners</a></li>
-    </ul>
-    <a href="#join" class="btn btn--teal nav-cta">Apply Now</a>
+<!-- ═══════════════════════════════════════ NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-text">AxisMED</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#curriculum">Program</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#partners">Partners</a></li>
+  </ul>
+  <a href="#join" class="btn btn-primary nav-cta" style="padding:10px 22px;font-size:13px;">Apply Now</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#curriculum" onclick="closeMenu()">Program</a>
+  <a href="#impact" onclick="closeMenu()">Impact</a>
+  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="#leadership" onclick="closeMenu()">Leadership</a>
+  <a href="#partners" onclick="closeMenu()">Partners</a>
+  <a href="#join" onclick="closeMenu()" style="color:var(--teal-lt);font-weight:700;">Apply Now →</a>
+</div>
 
-<!-- ─── HERO ─── -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-eyebrow">
-          <div class="dot"></div>
-          <span>University of Illinois · Carle Illinois College of Medicine</span>
-        </div>
-        <h1>Where Medicine,<br>Engineering &amp;<br><em>Innovation</em> Converge</h1>
-        <p>AxisMED is UIUC's student-led biomedical incubator, guiding interdisciplinary teams from clinical problem to investable company through a rigorous, mentor-driven curriculum.</p>
-        <div class="hero-actions">
-          <a href="#join" class="btn btn--teal">Apply as Team Leader</a>
-          <a href="#model" class="btn btn--outline-white">How It Works</a>
-        </div>
+<!-- ═══════════════════════════════════════ HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-left fade-up">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        2025–2026 Cohort Now Active
+      </div>
+      <h1 class="hero-title">
+        Where Medical Ideas<br>Become <em>Companies</em>
+      </h1>
+      <p class="hero-sub">
+        AxisMED is an independent student-run biomedical innovation incubator. We take multidisciplinary teams from clinical problem to investable venture — in one academic year.
+      </p>
+      <div class="hero-actions">
+        <button onclick="openModal('apply')" class="btn btn-primary">Apply to the Program</button>
+        <a href="#curriculum" class="btn btn-outline">See How It Works</a>
       </div>
       <div class="hero-stats">
-        <div class="stat-card">
-          <div class="stat-num">7+</div>
-          <div class="stat-label">Active Teams<br>2025–2026</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" data-target="7">0</div>
+          <div class="hero-stat-label">Active Cohorts</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-num">40+</div>
-          <div class="stat-label">Total Projects<br>Across All Cohorts</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" data-target="40">0</div>
+          <div class="hero-stat-label">Teams Launched</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">2024–25 Teams<br>Entered Cozad</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">100%</div>
+          <div class="hero-stat-label">2024–25 in Cozad</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-num">6+</div>
-          <div class="stat-label">Years of<br>Innovation</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" data-target="3">0</div>
+          <div class="hero-stat-label">Awards Won</div>
         </div>
       </div>
+    </div>
+    <div class="hero-visual fade-up" style="transition-delay:0.2s">
+      <canvas id="hero-canvas" width="520" height="420"></canvas>
     </div>
   </div>
 </section>
 
-<!-- ─── LOGOS BAR ─── -->
-<div class="logos-bar">
-  <div class="logos-inner">
-    <span class="logos-label">In partnership with</span>
-    <span class="logo-item">Carle Illinois COM</span>
-    <span class="logo-item">·</span>
-    <span class="logo-item">Gies College of Business</span>
-    <span class="logo-item">·</span>
-    <span class="logo-item">Grainger Engineering</span>
-    <span class="logo-item">·</span>
-    <span class="logo-item">Illinois I-Corps</span>
-    <span class="logo-item">·</span>
-    <span class="logo-item">Cozad New Venture Challenge</span>
-    <span class="logo-item">·</span>
-    <span class="logo-item">EnMed</span>
+<!-- ═══════════════════════════════════════ LOGOS BAR -->
+<div id="logos-bar">
+  <div class="container">
+    <div class="logos-inner">
+      <span class="logos-label">In Partnership With</span>
+      <div class="logos-items">
+        <span class="logos-item">Carle Illinois College of Medicine</span>
+        <span class="logos-item">Grainger Engineering</span>
+        <span class="logos-item">Gies College of Business</span>
+        <span class="logos-item">NSF I-Corps</span>
+        <span class="logos-item">Cozad New Venture Challenge</span>
+        <span class="logos-item">UIUC EnterpriseWorks</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ─── ABOUT / MISSION ─── -->
-<section class="section" id="about">
+<!-- ═══════════════════════════════════════ ABOUT -->
+<section id="about" class="section">
   <div class="container">
-    <div class="mission-grid">
-      <div>
-        <span class="label">Our Mission</span>
-        <h2>Filling the Gap Between<br>Academia and Innovation</h2>
-        <p style="color:var(--gray-700); margin: 20px 0 32px; font-size: 1.05rem; line-height: 1.7;">
-          AxisMED's pre-incubation program connects students with the tools necessary to build early-stage healthcare ventures — bridging the University's academic resources, Carle Health, and business incubators.
-        </p>
-        <p style="color:var(--gray-500); margin-bottom: 32px; font-size: .9rem; line-height: 1.7;">
-          Born from the mission of Carle Illinois College of Medicine — the world's first engineering-based medical school — AxisMED brings together future physicians, engineers, and business leaders to tackle the most pressing unmet needs in healthcare. We follow the Stanford Biodesign methodology, combining clinical immersion, entrepreneurial education, and hands-on mentorship.
-        </p>
-        <a href="#join" class="btn btn--teal">Learn More About Us</a>
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div class="about-card-stack">
+          <div class="about-card">
+            <div class="about-icon" style="background:#E0FDF4;">🏥</div>
+            <div class="about-card-body">
+              <h4>Clinically Grounded</h4>
+              <p>Every problem starts at the bedside — sourced from physicians, nurses, and patients at Carle Health.</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-icon" style="background:#EDE9FE;">🔬</div>
+            <div class="about-card-body">
+              <h4>Stanford Biodesign Framework</h4>
+              <p>Our 5-stage Design Review process mirrors the gold standard for health technology innovation.</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-icon" style="background:#DBEAFE;">🚀</div>
+            <div class="about-card-body">
+              <h4>Built to Launch</h4>
+              <p>Teams emerge with IP filings, I-Corps certification, investor decks, and venture competition entry.</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-origin">
+          <p><strong>Founded by students.</strong> AxisMED was born from the conviction that the world's first engineering-based medical school is the ideal launchpad for the next generation of physician-entrepreneurs. We are independent, student-led, and built to last.</p>
+        </div>
       </div>
-      <div class="mission-card-stack">
-        <div class="mc">
-          <div class="mc-icon mc-icon--blue">🏥</div>
-          <div>
-            <h4>Clinical Problem Focus</h4>
-            <p>Every project starts from a real, validated clinical need — sourced from physicians, nurses, and patients at Carle Health and beyond.</p>
-          </div>
-        </div>
-        <div class="mc">
-          <div class="mc-icon mc-icon--green">🔬</div>
-          <div>
-            <h4>Biodesign Methodology</h4>
-            <p>Our five-stage Design Review curriculum mirrors the Stanford Biodesign framework — from need statement to pitch-ready prototype.</p>
-          </div>
-        </div>
-        <div class="mc">
-          <div class="mc-icon mc-icon--purple">💡</div>
-          <div>
-            <h4>Multidisciplinary Teams</h4>
-            <p>Every team integrates medical, engineering, and business expertise — the DNA of every successful healthtech venture.</p>
-          </div>
-        </div>
-        <div class="mc">
-          <div class="mc-icon mc-icon--blue">📜</div>
-          <div>
-            <h4>IP Protection</h4>
-            <p>Teams sign NDAs and receive guidance on patents and trademarks through UIUC's IP Clinic. Your ideas remain yours.</p>
-          </div>
+      <div class="about-text fade-up" style="transition-delay:0.15s">
+        <span class="eyebrow">About AxisMED</span>
+        <h2 class="section-title">The Innovation Engine Born at Carle Illinois</h2>
+        <p>AxisMED is a student-founded, independently operated biomedical innovation incubator. We exist at the intersection of medicine, engineering, and business — bringing together multidisciplinary teams to attack real, validated clinical unmet needs.</p>
+        <p>We are not a class or a club. AxisMED is a pre-incubation program that gives student entrepreneurs the infrastructure, mentorship, and competitive pathways to build ventures that matter — before they graduate.</p>
+        <div class="about-pillars">
+          <div class="about-pillar"><div class="about-pillar-dot"></div>Structured 5-Stage Design Review Curriculum</div>
+          <div class="about-pillar"><div class="about-pillar-dot"></div>Multidisciplinary Teams: Medicine + Engineering + Business</div>
+          <div class="about-pillar"><div class="about-pillar-dot"></div>NSF I-Corps Lean Launchpad Integration</div>
+          <div class="about-pillar"><div class="about-pillar-dot"></div>IP Guidance via UIUC Office of Technology Management</div>
+          <div class="about-pillar"><div class="about-pillar-dot"></div>Pipeline to Cozad, iVenture, and EnterpriseWorks</div>
+          <div class="about-pillar"><div class="about-pillar-dot"></div>NDA-Protected Innovation from Day One</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── HOW IT WORKS / MODEL ─── -->
-<section class="section section--gray" id="model">
+<!-- ═══════════════════════════════════════ CURRICULUM -->
+<section id="curriculum" class="section section-light">
   <div class="container">
-    <div style="text-align:center; margin-bottom: 56px;">
-      <span class="label">The AxisMED Curriculum</span>
-      <h2>From Problem to Pitch in One Academic Year</h2>
-      <p style="color:var(--gray-500); max-width:560px; margin: 16px auto 0; font-size:.95rem;">
-        Our five-stage Design Review process takes teams from raw clinical observation to an investor-ready pitch deck — with workshops, mentor meetings, and peer review at every step.
-      </p>
+    <div class="curriculum-intro fade-up">
+      <span class="eyebrow">The Program</span>
+      <h2 class="section-title" style="text-align:center">Five Design Reviews.<br>One Investable Company.</h2>
+      <p class="section-sub" style="text-align:center">A structured academic-year journey from clinical problem statement to investor-ready pitch — guided by faculty advisors, industry mentors, and an experienced exec board.</p>
     </div>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">DR1</div>
-        <h4>Problem Statement</h4>
-        <p>Define the clinical need. Who is affected, where, and how severely?</p>
+    <div class="dr-track fade-up" style="transition-delay:0.15s">
+      <div class="dr-connector"></div>
+      <div class="dr-card">
+        <div class="dr-circle">DR1</div>
+        <div class="dr-month">October</div>
+        <div class="dr-title">Problem Statement</div>
+        <ul class="dr-bullets">
+          <li>Identify & validate clinical need</li>
+          <li>Customer discovery begins</li>
+          <li>Problem statement deliverable</li>
+          <li>7-min presentation to exec</li>
+        </ul>
       </div>
-      <div class="step">
-        <div class="step-num">DR2</div>
-        <h4>Market &amp; Customer Discovery</h4>
-        <p>Validate the need through stakeholder interviews and I-Corps training.</p>
+      <div class="dr-card">
+        <div class="dr-circle">DR2</div>
+        <div class="dr-month">November</div>
+        <div class="dr-title">Market & Customer Discovery</div>
+        <ul class="dr-bullets">
+          <li>I-Corps Lean Launchpad</li>
+          <li>10+ stakeholder interviews</li>
+          <li>Value proposition articulated</li>
+          <li>TAM / SAM / SOM estimation</li>
+        </ul>
       </div>
-      <div class="step">
-        <div class="step-num">DR3</div>
-        <h4>IP &amp; Commercialization</h4>
-        <p>Explore the IP landscape, competitive analysis, and business model.</p>
+      <div class="dr-card">
+        <div class="dr-circle">DR3</div>
+        <div class="dr-month">December</div>
+        <div class="dr-title">IP & Commercialization</div>
+        <ul class="dr-bullets">
+          <li>IP landscape review</li>
+          <li>Competitive analysis</li>
+          <li>Business model canvas</li>
+          <li>Regulatory pathway ID</li>
+        </ul>
       </div>
-      <div class="step">
-        <div class="step-num">DR4</div>
-        <h4>Prototype &amp; Solution</h4>
-        <p>Build and present your initial prototype with a defined value proposition.</p>
+      <div class="dr-card">
+        <div class="dr-circle">DR4</div>
+        <div class="dr-month">January</div>
+        <div class="dr-title">Prototype & Solution</div>
+        <ul class="dr-bullets">
+          <li>Initial prototype / PoC</li>
+          <li>Technical feasibility confirmed</li>
+          <li>Defined value proposition</li>
+          <li>Advisor feedback incorporated</li>
+        </ul>
       </div>
-      <div class="step">
-        <div class="step-num">DR5</div>
-        <h4>Final Pitch</h4>
-        <p>Investor-ready deck, demo day at Cozad, and pathway to continued funding.</p>
-      </div>
-    </div>
-    <div style="margin-top: 56px; display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
-      <div style="background:white; border-radius:12px; padding: 28px; box-shadow: var(--shadow);">
-        <div style="font-size:1.8rem; margin-bottom:12px;">📅</div>
-        <h4 style="margin-bottom:8px;">Weekly Workshops</h4>
-        <p style="font-size:.83rem; color:var(--gray-500);">Structured workshops covering needs assessment, value propositions, IP/regulatory, market analysis, and pitching — led by faculty and industry mentors.</p>
-      </div>
-      <div style="background:white; border-radius:12px; padding: 28px; box-shadow: var(--shadow);">
-        <div style="font-size:1.8rem; margin-bottom:12px;">🤝</div>
-        <h4 style="margin-bottom:8px;">Advisor Matching</h4>
-        <p style="font-size:.83rem; color:var(--gray-500);">Every team is paired with a clinical advisor, engineering mentor, and executive board liaison for ongoing 1-on-1 guidance throughout the year.</p>
-      </div>
-      <div style="background:white; border-radius:12px; padding: 28px; box-shadow: var(--shadow);">
-        <div style="font-size:1.8rem; margin-bottom:12px;">🏆</div>
-        <h4 style="margin-bottom:8px;">Cozad &amp; Beyond</h4>
-        <p style="font-size:.83rem; color:var(--gray-500);">Top teams compete in the Cozad New Venture Challenge and connect with the broader UIUC entrepreneurship ecosystem — including iVenture and EnterpriseWorks.</p>
+      <div class="dr-card">
+        <div class="dr-circle">DR5</div>
+        <div class="dr-month">March</div>
+        <div class="dr-title">Final Pitch</div>
+        <ul class="dr-bullets">
+          <li>Investor-ready pitch deck</li>
+          <li>Cozad Competition entry</li>
+          <li>Demo Day presentation</li>
+          <li>Next steps & funding strategy</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── IMPACT ─── -->
-<section class="section section--dark" id="impact">
+<!-- ═══════════════════════════════════════ IMPACT -->
+<section id="impact" class="section section-dark">
   <div class="container">
-    <div style="text-align:center;">
-      <span class="label label--white">By the Numbers</span>
-      <h2 style="color:#fff;">AxisMED by the Numbers</h2>
-      <p style="color:rgba(255,255,255,.65); max-width:520px; margin: 16px auto 0; font-size:.95rem;">
-        Since our founding, AxisMED has grown into UIUC's premier health innovation training ground — with real results that speak for themselves.
-      </p>
+    <div class="fade-up" style="margin-bottom:48px">
+      <span class="eyebrow">By the Numbers</span>
+      <h2 class="section-title light">AxisMED by the Numbers</h2>
     </div>
-    <div class="impact-grid">
-      <div class="impact-item">
-        <div class="impact-num">7+</div>
-        <div class="impact-label">Cohorts of<br>Innovation</div>
+    <div class="impact-top fade-up">
+      <div class="kpi-card">
+        <div class="kpi-num">7+</div>
+        <div class="kpi-label">Active Cohorts</div>
+        <div class="kpi-sub">Since founding in 2018</div>
       </div>
-      <div class="impact-item">
-        <div class="impact-num">40+</div>
-        <div class="impact-label">Teams Trained<br>Since Founding</div>
+      <div class="kpi-card">
+        <div class="kpi-num">40+</div>
+        <div class="kpi-label">Total Projects</div>
+        <div class="kpi-sub">Across all cohorts</div>
       </div>
-      <div class="impact-item">
-        <div class="impact-num">100%</div>
-        <div class="impact-label">2024–25 Teams<br>in Cozad Competition</div>
+      <div class="kpi-card">
+        <div class="kpi-num">100%</div>
+        <div class="kpi-label">Cozad Entry Rate</div>
+        <div class="kpi-sub">2024–25 cohort</div>
       </div>
-      <div class="impact-item">
-        <div class="impact-num">3+</div>
-        <div class="impact-label">Major Awards &amp;<br>Prize Recognitions</div>
+      <div class="kpi-card">
+        <div class="kpi-num">3+</div>
+        <div class="kpi-label">Awards Won</div>
+        <div class="kpi-sub">In competition</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">3</div>
+        <div class="kpi-label">College Partners</div>
+        <div class="kpi-sub">CIMED · Gies · Grainger</div>
       </div>
     </div>
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
-      <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:28px; display:flex; gap:20px; align-items:center;">
-        <div style="font-size:2.2rem;">🥇</div>
-        <div>
-          <div style="font-weight:700; color:#fff; font-size:1rem; margin-bottom:4px;">Sprout — 4th Place, Cozad New Venture Challenge</div>
-          <div style="font-size:.82rem; color:rgba(255,255,255,.55);">2024–25 AxisMED cohort, University-wide startup competition</div>
+    <span class="eyebrow fade-up" style="margin-bottom:24px;">Recent Recognition</span>
+    <div class="awards-row fade-up">
+      <div class="award-card">
+        <div class="award-icon">🥇</div>
+        <div class="award-body">
+          <h4>Sprout — 4th Place Overall</h4>
+          <p>Cozad New Venture Challenge 2025. University-wide startup competition with top UIUC ventures across all disciplines.</p>
         </div>
       </div>
-      <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:28px; display:flex; gap:20px; align-items:center;">
-        <div style="font-size:2.2rem;">🏅</div>
-        <div>
-          <div style="font-weight:700; color:#fff; font-size:1rem; margin-bottom:4px;">HeartRestart — Carle Rural Health Innovation &amp; Sports Medicine Prizes</div>
-          <div style="font-size:.82rem; color:rgba(255,255,255,.55);">2024–25 AxisMED cohort, dual prize winner at Cozad</div>
+      <div class="award-card">
+        <div class="award-icon">🏅</div>
+        <div class="award-body">
+          <h4>HeartRestart — Dual Prize Winner</h4>
+          <p>Carle Rural Health Innovation Prize + Sports Medicine Prize. Cozad New Venture Challenge 2025.</p>
+        </div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🎓</div>
+        <div class="award-body">
+          <h4>VentureWell Grant Pursuit</h4>
+          <p>Pursuing formal integration of AxisMED curriculum into CIMED — a Healthcare I&amp;E Certificate Program.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── PORTFOLIO / TEAMS ─── -->
-<section class="section" id="teams">
+<!-- ═══════════════════════════════════════ PORTFOLIO -->
+<section id="portfolio" class="section">
   <div class="container">
-    <div class="portfolio-header">
-      <div>
-        <span class="label">Portfolio</span>
-        <h2>Our Teams &amp; Projects</h2>
-      </div>
-      <div class="tabs">
-        <div class="tab active">2025–2026</div>
-        <div class="tab">2024–2025</div>
-        <div class="tab">2023–2024</div>
-        <div class="tab">Prior Cohorts</div>
-      </div>
+    <div class="fade-up" style="margin-bottom:40px">
+      <span class="eyebrow">Portfolio</span>
+      <h2 class="section-title">Teams Building What's Next</h2>
+      <p class="section-sub">Across all cohorts, AxisMED teams have tackled problems spanning 8 therapeutic areas.</p>
+    </div>
+    <div class="portfolio-tabs fade-up">
+      <button class="tab-btn active" onclick="showCohort('c2526', this)">2025–2026</button>
+      <button class="tab-btn" onclick="showCohort('c2425', this)">2024–2025</button>
+      <button class="tab-btn" onclick="showCohort('c2324', this)">2023–2024</button>
+      <button class="tab-btn" onclick="showCohort('c2223', this)">2022–2023</button>
     </div>
 
-    <!-- 2025-2026 Teams -->
-    <div class="teams-grid">
+    <div id="c2526" class="cohort-panel active">
       <div class="team-card">
-        <span class="team-tag tag--blue">Pulmonology · AI/Digital Health</span>
-        <h3>Pneumonia Detection via Chest Percussion</h3>
-        <p>AI-powered smartphone application that standardizes and augments chest percussion to detect pneumonia, addressing the subjectivity of a key physical exam skill.</p>
-        <div class="team-cohort">Team Leader: Arnav · 2025–2026</div>
-      </div>
-      <div class="team-card">
-        <span class="team-tag tag--teal">Neurology · Digital Health</span>
-        <h3>Stroke Discharge Management Platform</h3>
-        <p>Digital health tool to reduce 30-day stroke readmissions by guiding patients through post-discharge recovery with medication tracking and milestone check-ins.</p>
-        <div class="team-cohort">Team Leader: Neema · 2025–2026</div>
-      </div>
-      <div class="team-card">
-        <span class="team-tag tag--purple">Nephrology · Endocrinology</span>
-        <h3>Diabetic Nephropathy Biomarker Detection</h3>
-        <p>Novel diagnostic approach for asymptomatic diabetic kidney disease, targeting early-stage detection through biomarker identification to prevent progression to renal failure.</p>
-        <div class="team-cohort">Team Leader: Ifrah · 2025–2026</div>
-      </div>
-      <div class="team-card">
-        <span class="team-tag tag--rose">Women's Health · Medical Devices</span>
-        <h3>Next-Generation Speculum Design</h3>
-        <p>Redesigning the pelvic speculum to address a well-known unmet need in patient comfort and procedural accessibility — reducing barriers to preventative gynecologic care.</p>
-        <div class="team-cohort">Team Leader: Basel · 2025–2026</div>
-      </div>
-      <div class="team-card">
-        <span class="team-tag tag--indigo">Health IT · Clinical Workflow</span>
-        <h3>Efficient Healthcare Data &amp; Physician Workflow</h3>
-        <p>AI-assisted EHR documentation and workflow tool designed to reduce physician administrative burden and improve the quality of clinical data capture at the point of care.</p>
-        <div class="team-cohort">Team Leader: Kelly · 2025–2026</div>
-      </div>
-      <div class="team-card">
-        <span class="team-tag tag--green">Orthopedics · Rehabilitation</span>
-        <h3>Automated Physical Therapy Device</h3>
-        <p>Wearable/device-based platform for home physical therapy targeting lower-extremity neuropathy and post-surgical rehab, making evidence-based PT more accessible and measurable.</p>
-        <div class="team-cohort">Team Leader: Addison · 2025–2026</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── THERAPEUTIC VERTICALS ─── -->
-<section class="section section--sky">
-  <div class="container">
-    <div style="text-align:center; margin-bottom: 8px;">
-      <span class="label">Therapeutic Verticals</span>
-      <h2>Healthcare Areas We Address</h2>
-      <p style="color:var(--gray-500); max-width:540px; margin: 16px auto 0; font-size:.9rem;">
-        Across all cohorts, AxisMED teams have tackled problems in every major clinical domain — from diagnostics to devices, digital health to women's health.
-      </p>
-    </div>
-    <div class="verticals-grid">
-      <div class="vertical-card">
-        <div class="vertical-icon">🫀</div>
-        <h4>Cardiovascular &amp; Vascular</h4>
-        <p>Cardiac monitoring, resuscitation, edema, DVT</p>
-        <span class="vertical-count">3+ Teams</span>
-      </div>
-      <div class="vertical-card" style="border-top-color:#6D28D9;">
-        <div class="vertical-icon">🧠</div>
-        <h4>Neurology &amp; Oncology</h4>
-        <p>Stroke recovery, brain tumor diagnostics, neuro-monitoring</p>
-        <span class="vertical-count">3+ Teams</span>
-      </div>
-      <div class="vertical-card" style="border-top-color:#BE123C;">
-        <div class="vertical-icon">🔬</div>
-        <h4>Women's Health</h4>
-        <p>Endometriosis, mammography, gynecologic devices, pap smear</p>
-        <span class="vertical-count">5+ Teams</span>
-      </div>
-      <div class="vertical-card" style="border-top-color:#1D4ED8;">
-        <div class="vertical-icon">📱</div>
-        <h4>Digital Health &amp; AI</h4>
-        <p>AI diagnostics, EHR workflow, patient discharge apps</p>
-        <span class="vertical-count">4+ Teams</span>
-      </div>
-      <div class="vertical-card" style="border-top-color:#065F46;">
-        <div class="vertical-icon">🦴</div>
-        <h4>Orthopedics &amp; Rehab</h4>
-        <p>Physical therapy automation, lower limb recovery, wearables</p>
-        <span class="vertical-count">3+ Teams</span>
-      </div>
-      <div class="vertical-card" style="border-top-color:#92400E;">
-        <div class="vertical-icon">🧫</div>
-        <h4>Endocrinology &amp; Metabolic</h4>
-        <p>Diabetic retinopathy, nephropathy, insulin delivery</p>
-        <span class="vertical-count">3+ Teams</span>
-      </div>
-      <div class="vertical-card" style="border-top-color:#0369A1;">
-        <div class="vertical-icon">🏥</div>
-        <h4>Hospital Safety &amp; Infectious Disease</h4>
-        <p>HAIs, foley catheters, radiation protection</p>
-        <span class="vertical-count">2+ Teams</span>
-      </div>
-      <div class="vertical-card" style="border-top-color:#3730A3;">
-        <div class="vertical-icon">🫁</div>
-        <h4>Pulmonology &amp; Diagnostics</h4>
-        <p>Percussion-based AI, diagnostic imaging, biofluidics</p>
-        <span class="vertical-count">2+ Teams</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── GET INVOLVED ─── -->
-<section class="section" id="join">
-  <div class="container">
-    <div class="process-grid">
-      <div>
-        <span class="label">Get Involved</span>
-        <h2>Join the Next Generation of Health Innovators</h2>
-        <p style="color:var(--gray-500); margin: 20px 0 36px; font-size:.9rem; line-height:1.7;">
-          Whether you're a medical student with a clinical insight, an engineer looking for meaningful work, or a business student ready to build — AxisMED is for you.
-        </p>
-        <div class="process-steps">
-          <div class="ps">
-            <div class="ps-num">1</div>
-            <div class="ps-content">
-              <h4>Apply as Team Leader</h4>
-              <p>Have a clinical problem or area of interest? Apply each August to lead a team through our full-year curriculum.</p>
-            </div>
-          </div>
-          <div class="ps">
-            <div class="ps-num">2</div>
-            <div class="ps-content">
-              <h4>Join as a Team Member</h4>
-              <p>Engineers, CS students, and business students can apply to join a team each fall. Applications open September–October.</p>
-            </div>
-          </div>
-          <div class="ps">
-            <div class="ps-num">3</div>
-            <div class="ps-content">
-              <h4>Become an Advisor</h4>
-              <p>Physicians, faculty, and industry professionals can serve as clinical or technical advisors to our teams.</p>
-            </div>
-          </div>
-          <div class="ps">
-            <div class="ps-num">4</div>
-            <div class="ps-content">
-              <h4>Partner With Us</h4>
-              <p>Organizations and incubators can explore formal partnerships, sponsorships, or collaborative programming.</p>
-            </div>
-          </div>
+        <div class="team-card-top" style="background:#0EA5E9"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#0369A1">Pulmonology · AI / Digital Health</div>
+          <div class="team-name">AI Chest Percussion — Pneumonia Detection</div>
+          <div class="team-desc">AI smartphone app to standardize chest percussion for pneumonia detection, addressing variability in physician exam skill via machine learning.</div>
+          <div class="team-leader">Team Leader: Arnav</div>
         </div>
       </div>
-      <div class="join-card">
-        <h3>Ready to Build Something That Matters?</h3>
-        <p>AxisMED applications open each August. Reach out anytime to learn more.</p>
-        <div class="join-options">
-          <div class="join-option">
-            <div class="join-option-icon">🩺</div>
-            <div class="join-option-text">
-              <h5>Medical Students &amp; Residents</h5>
-              <p>Apply as Team Leader — bring a clinical problem to life</p>
-            </div>
-          </div>
-          <div class="join-option">
-            <div class="join-option-icon">⚙️</div>
-            <div class="join-option-text">
-              <h5>Engineers &amp; Scientists</h5>
-              <p>Apply as Team Member — build the solution</p>
-            </div>
-          </div>
-          <div class="join-option">
-            <div class="join-option-icon">📊</div>
-            <div class="join-option-text">
-              <h5>Business Students</h5>
-              <p>Apply as Team Member — build the company</p>
-            </div>
-          </div>
-          <div class="join-option">
-            <div class="join-option-icon">👨‍⚕️</div>
-            <div class="join-option-text">
-              <h5>Physicians &amp; Faculty</h5>
-              <p>Become an advisor — guide the next generation</p>
-            </div>
-          </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#6366F1"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#4338CA">Neurology · Digital Health</div>
+          <div class="team-name">Stroke Discharge Management Platform</div>
+          <div class="team-desc">Digital tool to reduce 30-day readmissions for stroke patients through guided post-discharge recovery, medication tracking, and milestone alerts.</div>
+          <div class="team-leader">Team Leader: Neema</div>
         </div>
-        <a href="mailto:mimam3@illinois.edu" class="btn btn--teal" style="width:100%; text-align:center;">Contact Us to Get Started</a>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#8B5CF6"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#6D28D9">Nephrology · Endocrinology</div>
+          <div class="team-name">Diabetic Nephropathy Biomarker Detection</div>
+          <div class="team-desc">Novel biomarker-based diagnostic for asymptomatic diabetic kidney disease, enabling earlier intervention before irreversible renal damage.</div>
+          <div class="team-leader">Team Leader: Ifrah</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#EC4899"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#BE185D">Women's Health · Medical Devices</div>
+          <div class="team-name">Next-Generation Speculum</div>
+          <div class="team-desc">Redesigned pelvic speculum to reduce patient discomfort and procedural barriers during routine gynecologic exams — a long-unaddressed unmet need.</div>
+          <div class="team-leader">Team Leader: Basel</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#3B82F6"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#1D4ED8">Health IT · Clinical Workflow</div>
+          <div class="team-name">Efficient Healthcare Data Platform</div>
+          <div class="team-desc">AI-assisted EHR documentation tool to reduce physician administrative burden, improve clinical data quality, and streamline physician-patient interaction.</div>
+          <div class="team-leader">Team Leader: Kelly</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#10B981"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#065F46">Orthopedics · Rehabilitation</div>
+          <div class="team-name">Automated Physical Therapy Device</div>
+          <div class="team-desc">Home-based wearable for lower-extremity PT targeting 20M+ Americans with neuropathy and post-surgical rehab needs.</div>
+          <div class="team-leader">Team Leader: Addison</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="c2425" class="cohort-panel">
+      <div class="team-card">
+        <div class="team-card-top" style="background:#F59E0B"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#B45309">Cardiovascular · Resuscitation ⭐ Dual Prize</div>
+          <div class="team-name">HeartRestart</div>
+          <div class="team-desc">Cardiac resuscitation innovation. Carle Rural Health Prize + Sports Medicine Prize winner at Cozad New Venture Challenge 2025.</div>
+          <div class="team-leader">Cozad Award Winner</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#84CC16"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#3F6212">Health Innovation ⭐ 4th Place Overall</div>
+          <div class="team-name">Sprout</div>
+          <div class="team-desc">Agri-health venture that placed 4th overall at the Cozad New Venture Challenge 2025, competing against top UIUC startups.</div>
+          <div class="team-leader">Cozad Award Winner</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#06B6D4"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#0E7490">Vascular · Monitoring</div>
+          <div class="team-name">Edema Monitoring Wearable</div>
+          <div class="team-desc">Non-invasive wearable for continuous edema monitoring in chronic venous insufficiency and heart failure patients.</div>
+          <div class="team-leader">Team: Kyung Seol</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#EF4444"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#991B1B">Cardiovascular · Remote Monitoring</div>
+          <div class="team-name">Cardiac Remote Monitoring Solution</div>
+          <div class="team-desc">Remote monitoring system for cardiac patients to reduce hospital readmissions and enable proactive care management.</div>
+          <div class="team-leader">Team: Kellie Cao</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#F97316"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#C2410C">Emergency Medicine</div>
+          <div class="team-name">EMS/ER Medical Device</div>
+          <div class="team-desc">IP-pending medical device targeting emergency medicine workflow, developed with I-Corps customer discovery integration.</div>
+          <div class="team-leader">Team: Varun Gopal</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#6366F1"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#4338CA">Digital Health</div>
+          <div class="team-name">I-Corps Health Technology Project</div>
+          <div class="team-desc">NSF I-Corps integrated digital health project with validated customer discovery across healthcare systems.</div>
+          <div class="team-leader">Team: Rishi Hoskeri</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="c2324" class="cohort-panel">
+      <div class="team-card">
+        <div class="team-card-top" style="background:#3B82F6"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#1D4ED8">Hospital Safety</div>
+          <div class="team-name">HAI & Foley Catheter Prevention</div>
+          <div class="team-desc">Device to prevent healthcare-associated infections via improved foley catheter management protocols.</div>
+          <div class="team-leader">Team: Keya Patel</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#10B981"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#065F46">Orthopedics · Rehab</div>
+          <div class="team-name">Lower Limb PT at Home</div>
+          <div class="team-desc">Home-based device for lower limb physical therapy, enabling post-surgical recovery without clinical supervision.</div>
+          <div class="team-leader">Team: Justin Kim</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#8B5CF6"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#6D28D9">Ophthalmology · AI</div>
+          <div class="team-name">GlucoVision — Diabetic Retinopathy</div>
+          <div class="team-desc">AI-powered diabetic retinopathy screening tool for point-of-care settings, reducing specialist referral burden.</div>
+          <div class="team-leader">Team: Justin Huynh</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#F59E0B"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#B45309">Radiology · Pediatrics</div>
+          <div class="team-name">Radiant Looms — Neonatal Radiation Shield</div>
+          <div class="team-desc">Protective shielding device to reduce radiation exposure in neonatal intensive care settings.</div>
+          <div class="team-leader">Team: Annie Tigranyan</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#EC4899"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#BE185D">Women's Health</div>
+          <div class="team-name">Endometriosis Screening</div>
+          <div class="team-desc">Non-invasive diagnostic tool to reduce average 7-year delay in endometriosis diagnosis through accessible screening.</div>
+          <div class="team-leader">Team: Kyra Hulse</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#06B6D4"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#0E7490">Women's Health · Radiology</div>
+          <div class="team-name">Mammogram Comfort & Accessibility</div>
+          <div class="team-desc">Device and protocol improvements to improve mammogram access and reduce procedural discomfort for underserved populations.</div>
+          <div class="team-leader">Team: Megha Agrawal</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="c2223" class="cohort-panel">
+      <div class="team-card">
+        <div class="team-card-top" style="background:#EC4899"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#BE185D">Women's Health</div>
+          <div class="team-name">Cervicare — Cervical Health Diagnostics</div>
+          <div class="team-desc">Accessible cervical health diagnostic solution for underserved populations with limited clinical access.</div>
+          <div class="team-leader">Cervicare Team</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#8B5CF6"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#6D28D9">Women's Health · OB/GYN</div>
+          <div class="team-name">BedSide Pap Smear</div>
+          <div class="team-desc">Point-of-care pap smear solution enabling cervical cancer screening in non-clinical and resource-limited settings.</div>
+          <div class="team-leader">BedSide Team</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#F97316"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#C2410C">Dermatology</div>
+          <div class="team-name">SKINtethics — Dermatological Monitoring</div>
+          <div class="team-desc">Wearable dermatological monitoring device for continuous skin condition tracking and early intervention alerts.</div>
+          <div class="team-leader">SKINtethics Team</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#0EA5E9"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#0369A1">Biofluidics · Diagnostics</div>
+          <div class="team-name">Beta Biofluidics — Diagnostic Platform</div>
+          <div class="team-desc">Microfluidic diagnostic platform for point-of-care biomarker detection with low-cost, rapid-result capabilities.</div>
+          <div class="team-leader">Beta Biofluidics Team</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#10B981"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#065F46">Women's Health</div>
+          <div class="team-name">Saliva Pregnancy Test</div>
+          <div class="team-desc">Non-invasive saliva-based pregnancy detection method offering a discreet, accessible alternative to conventional tests.</div>
+          <div class="team-leader">Saliva PG Team</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card-top" style="background:#6366F1"></div>
+        <div class="team-card-body">
+          <div class="team-vertical" style="color:#4338CA">Digital Biomarkers</div>
+          <div class="team-name">Neddie Byron — Biomarker Monitoring</div>
+          <div class="team-desc">Continuous digital biomarker monitoring platform for chronic disease management and early deterioration detection.</div>
+          <div class="team-leader">Neddie Byron Team</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── PARTNERS ─── -->
-<section class="section section--gray" id="partners">
+<!-- ═══════════════════════════════════════ VERTICALS -->
+<section id="verticals" class="section section-light">
   <div class="container">
-    <div style="text-align:center; margin-bottom: 8px;">
-      <span class="label">Ecosystem</span>
-      <h2>Our Partners &amp; Collaborators</h2>
-      <p style="color:var(--gray-500); max-width:500px; margin: 16px auto 0; font-size:.9rem;">
-        AxisMED is embedded in the UIUC innovation ecosystem — connecting teams with resources, mentors, and pathways to funding.
-      </p>
+    <div class="fade-up" style="margin-bottom:48px">
+      <span class="eyebrow">Therapeutic Focus Areas</span>
+      <h2 class="section-title">8 Verticals, 40+ Teams</h2>
+      <p class="section-sub">AxisMED teams have tackled the full spectrum of unmet clinical needs — from women's health to AI-powered diagnostics.</p>
     </div>
-    <div class="partners-grid">
-      <div class="partner-card">
-        <h4>🏛️ Carle Illinois College of Medicine</h4>
-        <p>The world's first engineering-based medical school and AxisMED's academic home. CIMED faculty serve as advisors and champions of our integration into the medical curriculum.</p>
+    <div class="verticals-grid fade-up">
+      <div class="vertical-card" style="border-top-color:#EC4899">
+        <div class="vertical-count" style="color:#BE185D">5+</div>
+        <div class="vertical-name">Women's Health</div>
+        <div class="vertical-desc">Endometriosis, mammography, gynecologic devices, pap smear, pregnancy testing</div>
       </div>
-      <div class="partner-card">
-        <h4>🏢 Gies College of Business</h4>
-        <p>Business students and faculty from Gies join AxisMED teams and workshops to provide financial modeling, market analysis, and commercialization expertise.</p>
+      <div class="vertical-card" style="border-top-color:#6366F1">
+        <div class="vertical-count" style="color:#4338CA">4+</div>
+        <div class="vertical-name">Digital Health & AI</div>
+        <div class="vertical-desc">AI diagnostics, EHR workflow, patient discharge apps, smartphone-based screening</div>
       </div>
-      <div class="partner-card">
-        <h4>⚙️ Grainger College of Engineering</h4>
-        <p>Engineering students across BME, ECE, and CS disciplines provide the technical backbone for AxisMED's device and software teams.</p>
+      <div class="vertical-card" style="border-top-color:#8B5CF6">
+        <div class="vertical-count" style="color:#6D28D9">3+</div>
+        <div class="vertical-name">Endocrinology & Metabolic</div>
+        <div class="vertical-desc">Diabetic retinopathy, nephropathy, insulin pump delivery, biomarker detection</div>
       </div>
-      <div class="partner-card">
-        <h4>🧪 Illinois I-Corps</h4>
-        <p>AxisMED team leaders are integrated into Illinois I-Corps' Lean Launchpad program for customer discovery training and NSF I-Corps eligibility.</p>
+      <div class="vertical-card" style="border-top-color:#10B981">
+        <div class="vertical-count" style="color:#065F46">3+</div>
+        <div class="vertical-name">Orthopedics & Rehab</div>
+        <div class="vertical-desc">PT automation, lower limb recovery, neuropathy, home-based wearables</div>
       </div>
-      <div class="partner-card">
-        <h4>🚀 Cozad New Venture Challenge</h4>
-        <p>AxisMED teams are guided toward the Cozad competition — UIUC's flagship startup pitch event — as the capstone of their year-long program.</p>
+      <div class="vertical-card" style="border-top-color:#00A896">
+        <div class="vertical-count" style="color:#00837A">3+</div>
+        <div class="vertical-name">Cardiovascular & Vascular</div>
+        <div class="vertical-desc">Cardiac monitoring, resuscitation, edema, DVT, remote monitoring</div>
       </div>
-      <div class="partner-card">
-        <h4>⚖️ UIUC IP Clinic</h4>
-        <p>The Office of Technology Management and IP Clinic provide patent, trademark, and licensing guidance to protect every team's intellectual property from day one.</p>
+      <div class="vertical-card" style="border-top-color:#3B82F6">
+        <div class="vertical-count" style="color:#1D4ED8">3+</div>
+        <div class="vertical-name">Neurology & Oncology</div>
+        <div class="vertical-desc">Stroke recovery, brain tumor diagnostics, neuropathology AI, neuro-monitoring</div>
+      </div>
+      <div class="vertical-card" style="border-top-color:#F97316">
+        <div class="vertical-count" style="color:#C2410C">2+</div>
+        <div class="vertical-name">Hospital Safety & ID</div>
+        <div class="vertical-desc">Healthcare-associated infections, foley catheters, radiation protection</div>
+      </div>
+      <div class="vertical-card" style="border-top-color:#0EA5E9">
+        <div class="vertical-count" style="color:#0369A1">2+</div>
+        <div class="vertical-name">Pulmonology & Diagnostics</div>
+        <div class="vertical-desc">Percussion-based AI, biofluidics, point-of-care diagnostics, biosensing</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── LEADERSHIP ─── -->
-<section class="section" id="leadership">
+<!-- ═══════════════════════════════════════ LEADERSHIP -->
+<section id="leadership" class="section">
   <div class="container">
-    <div style="text-align:center; margin-bottom: 8px;">
-      <span class="label">Leadership</span>
-      <h2>2025–2026 Executive Board</h2>
+    <div class="fade-up" style="margin-bottom:48px">
+      <span class="eyebrow">Executive Board</span>
+      <h2 class="section-title">The Team Behind AxisMED</h2>
+      <p class="section-sub">AxisMED is entirely student-run. Our executive board manages curriculum, recruitment, operations, finance, and clinical validation.</p>
     </div>
-    <div class="leadership-grid">
-      <div class="leader-card">
-        <div class="leader-avatar">M</div>
-        <h4>Maaz Imam</h4>
-        <p>President</p>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar">V</div>
-        <h4>Varun Gopal</h4>
-        <p>Director, Curriculum &amp; Programs</p>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar">A</div>
-        <h4>Anuj</h4>
-        <p>Director, Membership &amp; Recruitment</p>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar">A</div>
-        <h4>Andrew</h4>
-        <p>Director, Operations</p>
-      </div>
-      <div class="leader-card">
-        <div class="leader-avatar">K</div>
-        <h4>Kenan</h4>
-        <p>Director, Clinical Validation</p>
-      </div>
-      <div class="leader-card">
+    <div class="leadership-tier-row tier-top fade-up">
+      <div class="leader-card faculty">
         <div class="leader-avatar">P</div>
-        <h4>Pranav</h4>
-        <p>Director, Clinical Validation</p>
+        <div class="leader-name">Dr. Pappu</div>
+        <div class="leader-role">Faculty Advisor</div>
       </div>
-      <div class="leader-card">
-        <div class="leader-avatar">S</div>
-        <h4>Shonit</h4>
-        <p>Director, Problem Bank</p>
-      </div>
-      <div class="leader-card">
+      <div class="leader-card president">
         <div class="leader-avatar">M</div>
-        <h4>Meena Singhal</h4>
-        <p>Curriculum Support</p>
+        <div class="leader-name">Maaz Imam</div>
+        <div class="leader-role">President</div>
+      </div>
+      <div class="leader-card emeritus">
+        <div class="leader-avatar">B</div>
+        <div class="leader-name">Bilal Karim</div>
+        <div class="leader-role">President Emeritus</div>
+      </div>
+      <div class="leader-card emeritus">
+        <div class="leader-avatar">A</div>
+        <div class="leader-name">Al Smith</div>
+        <div class="leader-role">President Emeritus</div>
+      </div>
+      <div class="leader-card emeritus">
+        <div class="leader-avatar">N</div>
+        <div class="leader-name">Neddie Byron</div>
+        <div class="leader-role">Chief of Staff, Emeritus</div>
+      </div>
+    </div>
+
+    <div class="leadership-tier-row fade-up" style="margin-top:24px;">
+      <div class="leader-card director">
+        <div class="leader-avatar">V</div>
+        <div class="leader-name">Varun Gopal</div>
+        <div class="leader-role">Director of Curriculum</div>
+      </div>
+      <div class="leader-card director">
+        <div class="leader-avatar">Q</div>
+        <div class="leader-name">Qinyun Cai</div>
+        <div class="leader-role">Director of Finance</div>
+      </div>
+      <div class="leader-card director">
+        <div class="leader-avatar">A</div>
+        <div class="leader-name">Anuj Vimawala</div>
+        <div class="leader-role">Director of Membership</div>
+      </div>
+      <div class="leader-card director">
+        <div class="leader-avatar">A</div>
+        <div class="leader-name">Andrew Yoon</div>
+        <div class="leader-role">Director of Operations</div>
+      </div>
+      <div class="leader-card director">
+        <div class="leader-avatar">K</div>
+        <div class="leader-name">Kellie Cao</div>
+        <div class="leader-role">Special Projects &amp; EnMED Partnership</div>
+      </div>
+      <div class="leader-card director">
+        <div class="leader-avatar">K</div>
+        <div class="leader-name">Kenan Najjar</div>
+        <div class="leader-role">Director of Clinical Validation</div>
+      </div>
+      <div class="leader-card associate">
+        <div class="leader-avatar">M</div>
+        <div class="leader-name">Meenakshi Singhal</div>
+        <div class="leader-role">Curriculum Support</div>
+      </div>
+      <div class="leader-card associate">
+        <div class="leader-avatar">P</div>
+        <div class="leader-name">Prateek Dullur</div>
+        <div class="leader-role">Curriculum + Ops Support</div>
+      </div>
+      <div class="leader-card associate">
+        <div class="leader-avatar">G</div>
+        <div class="leader-name">Gyung Seol</div>
+        <div class="leader-role">Internal Validation</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- ═══════════════════════════════════════ JOIN -->
+<section id="join" class="section section-dark">
+  <div class="container">
+    <div class="join-grid">
+      <div class="fade-up">
+        <span class="eyebrow">Get Involved</span>
+        <h2 class="section-title light">Ready to Build Something That Matters?</h2>
+        <p class="section-sub light" style="margin-bottom:0">AxisMED accepts applications each fall. Teams are formed from students across medicine, engineering, and business who are serious about solving real clinical problems.</p>
+        <div class="join-steps">
+          <div class="join-step">
+            <div class="join-step-num">1</div>
+            <div class="join-step-body">
+              <h4>Apply to a Role</h4>
+              <p>Submit your application as a Team Leader or Team Member. Applications open each August.</p>
+            </div>
+          </div>
+          <div class="join-step">
+            <div class="join-step-num">2</div>
+            <div class="join-step-body">
+              <h4>Orientation & Team Formation</h4>
+              <p>Attend orientation, pitch your clinical problem, and form your multidisciplinary team.</p>
+            </div>
+          </div>
+          <div class="join-step">
+            <div class="join-step-num">3</div>
+            <div class="join-step-body">
+              <h4>Begin Design Reviews</h4>
+              <p>Work through the five-stage curriculum with exec support, faculty advisors, and industry mentors.</p>
+            </div>
+          </div>
+          <div class="join-step">
+            <div class="join-step-num">4</div>
+            <div class="join-step-body">
+              <h4>Pitch on Demo Day</h4>
+              <p>Present your investor-ready company at Demo Day and enter Cozad New Venture Challenge.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="join-cards fade-up" style="transition-delay:0.15s">
+        <div class="join-option">
+          <h4>Team Leader</h4>
+          <p>Lead a team through the full AxisMED curriculum. Bring a clinical problem or work with one assigned by the exec board. Requires commitment and ownership.</p>
+          <div class="join-option-btns">
+            <button onclick="openModal('apply')" class="btn btn-primary">Team Leader Application</button>
+          </div>
+        </div>
+        <div class="join-option">
+          <h4>Team Member</h4>
+          <p>Join an existing team as an engineering, business, or pre-med contributor. No idea required — just drive and curiosity.</p>
+          <div class="join-option-btns">
+            <button onclick="openModal('apply')" class="btn btn-ghost">Team Member Application</button>
+          </div>
+        </div>
+        <div class="join-option">
+          <h4>Become an Advisor</h4>
+          <p>Industry experts, physicians, investors, and operators: bring your experience into the room. Advisors mentor teams through Design Reviews and provide real-world validation.</p>
+          <div class="join-option-btns">
+            <button onclick="openAdvisor()" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);">Advisor Inquiry</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PARTNERS -->
+<section id="partners" class="section section-light">
+  <div class="container">
+    <div class="fade-up" style="margin-bottom:48px">
+      <span class="eyebrow">Ecosystem</span>
+      <h2 class="section-title">Our Partner Network</h2>
+      <p class="section-sub">AxisMED teams have access to one of the most comprehensive innovation ecosystems in the country.</p>
+    </div>
+    <div class="partners-grid fade-up">
+      <div class="partner-card">
+        <div class="partner-name">Carle Illinois College of Medicine</div>
+        <div class="partner-sub">World's first engineering-based medical school — our founding home</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">Grainger College of Engineering</div>
+        <div class="partner-sub">Technical talent pipeline and prototyping resources</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">Gies College of Business</div>
+        <div class="partner-sub">Business mentorship, market analysis, and commercialization support</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">NSF I-Corps</div>
+        <div class="partner-sub">Lean Launchpad customer discovery training for all teams</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">Cozad New Venture Challenge</div>
+        <div class="partner-sub">UIUC's flagship startup competition — all teams eligible</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">UIUC EnterpriseWorks & iVenture</div>
+        <div class="partner-sub">Incubator space, venture resources, and alumni network</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <h4>Axis<span>MED</span></h4>
-        <p>UIUC's student-led biomedical innovation incubator — training the next generation of physician-entrepreneurs to build the future of healthcare.</p>
-        <p style="margin-top: 16px;">A program of Carle Illinois College of Medicine<br>University of Illinois Urbana-Champaign</p>
+        <span class="nav-logo-text" style="display:block;margin-bottom:12px;">AxisMED</span>
+        <p>AxisMED is a student-founded, independently operated biomedical innovation incubator. Born at Carle Illinois College of Medicine. Built to launch the next generation of physician-entrepreneurs.</p>
+        <div class="footer-socials">
+          <a href="https://instagram.com/axis.med" target="_blank" rel="noopener" class="footer-social" title="Instagram">IG</a>
+          <a href="https://linkedin.com/company/axismedill" target="_blank" rel="noopener" class="footer-social" title="LinkedIn">in</a>
+          <a href="mailto:axismed.illinois@gmail.com" class="footer-social" title="Email">✉</a>
+        </div>
       </div>
       <div class="footer-col">
         <h5>Program</h5>
-        <ul>
-          <li><a href="#model">How It Works</a></li>
-          <li><a href="#teams">Our Teams</a></li>
-          <li><a href="#impact">Impact</a></li>
-          <li><a href="#">Curriculum</a></li>
+        <ul class="footer-links">
+          <li><a href="#about">About AxisMED</a></li>
+          <li><a href="#curriculum">The Curriculum</a></li>
+          <li><a href="#impact">Impact & Metrics</a></li>
+          <li><a href="#portfolio">Team Portfolio</a></li>
+          <li><a href="#verticals">Verticals</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Get Involved</h5>
-        <ul>
-          <li><a href="#join">Team Leader Application</a></li>
-          <li><a href="#join">Team Member Application</a></li>
-          <li><a href="#join">Become an Advisor</a></li>
-          <li><a href="#join">Partner with Us</a></li>
+        <ul class="footer-links">
+          <li><a href="javascript:void(0)" onclick="openModal('apply')">Team Leader Application</a></li>
+          <li><a href="javascript:void(0)" onclick="openModal('apply')">Team Member Application</a></li>
+          <li><a href="javascript:void(0)" onclick="openAdvisor()">Become an Advisor</a></li>
+          <li><a href="#leadership">Executive Board</a></li>
+          <li><a href="#partners">Partners</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="mailto:mimam3@illinois.edu">Email Us</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Discord</a></li>
+        <h5>Contact</h5>
+        <ul class="footer-links">
+          <li><a href="mailto:axismed.illinois@gmail.com">axismed.illinois@gmail.com</a></li>
+          <li><a href="https://instagram.com/axis.med" target="_blank" rel="noopener">@axis.med</a></li>
+          <li><a href="https://linkedin.com/company/axismedill" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="mailto:axismed.illinois@gmail.com">Email Us</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 AxisMED · University of Illinois Urbana-Champaign</span>
-      <span>Built with purpose. Powered by innovation.</span>
+      <p>© 2025–2026 AxisMED. All rights reserved.</p>
+      <p class="footer-note">An independent student organization. Not an official unit of the University of Illinois.</p>
     </div>
   </div>
 </footer>
 
-<script>
-  // Simple tab switching for teams section
-  const tabs = document.querySelectorAll('.tab');
-  const teamsGrid = document.querySelector('.teams-grid');
+<!-- ═══════════════════════════════════════ MODALS -->
 
-  const cohortData = {
-    '2025–2026': [
-      { tag: 'Pulmonology · AI/Digital Health', tagClass: 'tag--blue', title: 'Pneumonia Detection via Chest Percussion', desc: 'AI-powered smartphone application that standardizes and augments chest percussion to detect pneumonia, addressing the subjectivity of a key physical exam skill.', leader: 'Arnav', year: '2025–2026' },
-      { tag: 'Neurology · Digital Health', tagClass: 'tag--teal', title: 'Stroke Discharge Management Platform', desc: 'Digital health tool to reduce 30-day stroke readmissions by guiding patients through post-discharge recovery with medication tracking and milestone check-ins.', leader: 'Neema', year: '2025–2026' },
-      { tag: 'Nephrology · Endocrinology', tagClass: 'tag--purple', title: 'Diabetic Nephropathy Biomarker Detection', desc: 'Novel diagnostic approach for asymptomatic diabetic kidney disease, targeting early-stage detection through biomarker identification to prevent progression to renal failure.', leader: 'Ifrah', year: '2025–2026' },
-      { tag: "Women's Health · Medical Devices", tagClass: 'tag--rose', title: 'Next-Generation Speculum Design', desc: "Redesigning the pelvic speculum to address a well-known unmet need in patient comfort and procedural accessibility — reducing barriers to preventative gynecologic care.", leader: 'Basel', year: '2025–2026' },
-      { tag: 'Health IT · Clinical Workflow', tagClass: 'tag--indigo', title: 'Efficient Healthcare Data & Physician Workflow', desc: 'AI-assisted EHR documentation and workflow tool designed to reduce physician administrative burden and improve the quality of clinical data capture at the point of care.', leader: 'Kelly', year: '2025–2026' },
-      { tag: 'Orthopedics · Rehabilitation', tagClass: 'tag--green', title: 'Automated Physical Therapy Device', desc: 'Wearable/device-based platform for home physical therapy targeting lower-extremity neuropathy and post-surgical rehab, making evidence-based PT more accessible and measurable.', leader: 'Addison', year: '2025–2026' },
-    ],
-    '2024–2025': [
-      { tag: 'Cardiovascular · Rescue Medicine', tagClass: 'tag--rose', title: 'HeartRestart', desc: 'Award-winning cardiac resuscitation innovation. Winner of the Carle Rural Health Innovation Prize and Sports Medicine Prize at Cozad 2025.', leader: 'HeartRestart Team', year: '2024–2025', award: '🏅 Carle Prizes' },
-      { tag: 'Agriculture · Health', tagClass: 'tag--green', title: 'Sprout', desc: '4th place finisher at the Cozad New Venture Challenge 2025 — a top-performing venture from the 2024–2025 AxisMED cohort.', leader: 'Sprout Team', year: '2024–2025', award: '🥇 4th Place, Cozad' },
-      { tag: 'Vascular · Monitoring', tagClass: 'tag--blue', title: 'Edema Monitoring Device', desc: 'Wearable monitoring solution for edema detection and tracking, targeting patients in clinical and home settings.', leader: 'Kyung Seol', year: '2024–2025' },
-      { tag: 'Cardiovascular · Wearables', tagClass: 'tag--teal', title: 'Cardiac Monitoring Solution', desc: 'Innovative approach to remote cardiac monitoring addressing an unmet need in cardiothoracic patient care and follow-up.', leader: 'Kellie Cao', year: '2024–2025' },
-      { tag: 'Emergency Medicine · Devices', tagClass: 'tag--amber', title: 'EMS/ER Medical Device', desc: 'Novel medical device targeting emergency medicine workflows, with potential intellectual property filings pending further development.', leader: 'Varun Gopal', year: '2024–2025' },
-    ],
-    '2023–2024': [
-      { tag: 'Hospital Safety · Infectious Disease', tagClass: 'tag--amber', title: 'HAI & Foley Catheter Prevention', desc: 'Novel dressing or antimicrobial solution to reduce healthcare-associated infections tied to indwelling urinary catheters.', leader: 'Keya Patel', year: '2023–2024' },
-      { tag: 'Orthopedics · Digital Health', tagClass: 'tag--green', title: 'Lower Limb Physical Therapy at Home', desc: 'Automated system for home-based lower extremity physical therapy, targeting 20M Americans with neuropathy.', leader: 'Justin Kim', year: '2023–2024' },
-      { tag: 'Ophthalmology · Diagnostics', tagClass: 'tag--blue', title: 'GlucoVision — Diabetic Retinopathy Detection', desc: 'Low-cost smartphone-based screening for diabetic retinopathy in resource-limited settings.', leader: 'Justin Huynh', year: '2023–2024' },
-      { tag: 'Radiology · Pediatrics', tagClass: 'tag--sky', title: 'Radiant Looms — Pediatric X-Ray Radiation Shield', desc: 'Comfortable material-science-based radiation protection solution for neonates requiring repeated chest X-rays.', leader: 'Annie Tigranyan', year: '2023–2024' },
-      { tag: "Women's Health · Diagnostics", tagClass: 'tag--rose', title: 'Endometriosis Screening', desc: 'Less invasive biomarker-based screening approach to reduce the average 10-year delay in endometriosis diagnosis.', leader: 'Kyra Hulse', year: '2023–2024' },
-      { tag: "Women's Health · Radiology", tagClass: 'tag--purple', title: 'Mammogram Comfort & Accessibility', desc: 'Device innovation to reduce pain and anxiety during mammography, improving screening compliance and access.', leader: 'Megha Agrawal', year: '2023–2024' },
-      { tag: 'Oncology · AI Diagnostics', tagClass: 'tag--indigo', title: 'OptiX — Brain Tumor Diagnosis', desc: 'AI imaging platform to accelerate neuropathology diagnoses in resource-limited settings, reducing diagnostic delays from months to hours.', leader: 'Bilal Karim', year: '2023–2024' },
-      { tag: 'Endocrinology · Devices', tagClass: 'tag--teal', title: 'Low-Cost Insulin Pump', desc: 'Affordable insulin delivery system targeting the 50% of diabetics who struggle to achieve glycemic control due to cost barriers.', leader: 'Dipankar', year: '2023–2024' },
-    ],
-    'Prior Cohorts': [
-      { tag: "Women's Health · Diagnostics", tagClass: 'tag--rose', title: 'Cervicare', desc: 'Cervical health diagnostic innovation from the 2022–23 cohort, advancing accessible women\'s preventative care.', leader: 'Team Cervicare', year: '2022–2023' },
-      { tag: "Women's Health · OB/GYN", tagClass: 'tag--purple', title: 'BedSide Pap Smear', desc: 'Point-of-care pap smear solution to increase accessibility of cervical cancer screening outside the traditional clinic setting.', leader: 'Team Cervicare', year: '2022–2023' },
-      { tag: 'Dermatology · Devices', tagClass: 'tag--amber', title: 'SKINtethics', desc: 'Innovative dermatological solution addressing a clinical unmet need in skin condition management and monitoring.', leader: 'SKINtethics Team', year: '2022–2023' },
-      { tag: 'Biofluidics · Diagnostics', tagClass: 'tag--blue', title: 'Beta Biofluidics', desc: 'Microfluidics-based diagnostic platform from the 2022–23 cohort exploring novel biosensing applications.', leader: 'Beta Biofluidics Team', year: '2022–2023' },
-      { tag: "Women's Health · Point-of-Care", tagClass: 'tag--green', title: 'Saliva-Based Pregnancy Test', desc: 'Non-invasive, saliva-based alternative to urine pregnancy testing for improved privacy, accessibility, and ease of use.', leader: 'Team', year: '2022–2023' },
-      { tag: 'Biomarkers · Digital Health', tagClass: 'tag--teal', title: 'Biomarker Monitoring Platform', desc: 'Novel approach to continuous biomarker tracking from the founding UIUC cohort.', leader: 'Neddie Byron', year: '2021–2022' },
-    ]
-  };
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const cohort = tab.textContent;
-      const teams = cohortData[cohort] || [];
-      teamsGrid.innerHTML = teams.map(t => `
-        <div class="team-card">
-          <span class="team-tag ${t.tagClass}">${t.tag}</span>
-          <h3>${t.title}</h3>
-          <p>${t.desc}</p>
-          <div class="team-cohort">Team Leader: ${t.leader} · ${t.year}</div>
-          ${t.award ? `<div class="award-badge">${t.award}</div>` : ''}
+<!-- Application Modal (closed cycle) -->
+<div id="modal-apply" class="modal-overlay" onclick="closeModalOutside(event,'modal-apply')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Join AxisMED</h3>
+      <p>2025–2026 Application Portal</p>
+      <button class="modal-close" onclick="closeModal('modal-apply')">×</button>
+    </div>
+    <div class="modal-status">
+      <div class="status-icon">🔒</div>
+      <div class="status-text">
+        <h4>Applications Are Currently Closed</h4>
+        <p>The 2025–2026 application cycle is now closed. Sign up below and we'll notify you the moment the next cycle opens.</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p>Enter your details to be first on the notification list for the next AxisMED cohort.</p>
+      <form action="https://formsubmit.co/axismed.illinois@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="AxisMED Application Notification Signup">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" name="first_name" required placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" name="last_name" required placeholder="Smith">
+          </div>
         </div>
-      `).join('');
-    });
-  });
-</script>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" required placeholder="jane@illinois.edu">
+        </div>
+        <div class="form-group">
+          <label>School / Program</label>
+          <input type="text" name="program" placeholder="e.g. Carle Illinois M1, Grainger ECE, Gies MBA">
+        </div>
+        <div class="form-group">
+          <label>I'm interested in joining as...</label>
+          <select name="role_interest">
+            <option value="">Select a role</option>
+            <option value="Team Leader">Team Leader — I have a clinical problem to pursue</option>
+            <option value="Team Member">Team Member — I want to join an existing team</option>
+            <option value="Both">Either — I'm open to both</option>
+          </select>
+        </div>
+        <button type="submit" class="form-submit">Notify Me When Applications Open →</button>
+        <p class="form-note">We respect your privacy. You'll only hear from us when applications open.</p>
+      </form>
+    </div>
+  </div>
+</div>
 
+<!-- Advisor Modal -->
+<div id="modal-advisor" class="modal-overlay advisor-modal" onclick="closeModalOutside(event,'modal-advisor')">
+  <div class="modal">
+    <div class="modal-header" style="border-bottom-color:#3D3B6E">
+      <h3>Become an Advisor</h3>
+      <p>AxisMED Advisor Network</p>
+      <button class="modal-close" onclick="closeModal('modal-advisor')">×</button>
+    </div>
+    <div class="modal-body" style="padding-top:28px">
+      <p>AxisMED advisors are physicians, engineers, investors, and operators who guide our teams through real-world challenges. We're always looking for experienced mentors ready to invest their time in the next generation of healthcare innovators.</p>
+      <form action="https://formsubmit.co/axismed.illinois@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="AxisMED Advisor Inquiry">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" name="first_name" required placeholder="John">
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" name="last_name" required placeholder="Doe">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" required placeholder="john@example.com">
+        </div>
+        <div class="form-group">
+          <label>Title & Organization</label>
+          <input type="text" name="title_org" placeholder="e.g. Cardiologist, Carle Health / Partner, VC Firm">
+        </div>
+        <div class="form-group">
+          <label>Area of Expertise</label>
+          <input type="text" name="expertise" placeholder="e.g. Medical devices, Digital health, IP/Legal, Finance">
+        </div>
+        <div class="form-group">
+          <label>Tell us about yourself (optional)</label>
+          <textarea name="message" rows="3" placeholder="Background, motivation to advise, relevant experience..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Submit Advisor Inquiry →</button>
+        <p class="form-note">Our team will be in touch within 5–7 business days.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ SCRIPTS -->
+<script>
+// ── NAV scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+  updateActiveNav();
+});
+
+// ── Active nav highlight
+function updateActiveNav() {
+  const sections = ['about','curriculum','impact','portfolio','leadership','partners'];
+  const scrollY = window.scrollY + 100;
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+    if (!el || !link) return;
+    if (el.offsetTop <= scrollY && el.offsetTop + el.offsetHeight > scrollY) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+// ── Hamburger
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ── Modals
+function openModal(type) {
+  document.getElementById('modal-apply').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function openAdvisor() {
+  document.getElementById('modal-advisor').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal('modal-apply');
+    closeModal('modal-advisor');
+  }
+});
+
+// ── Cohort tabs
+function showCohort(id, btn) {
+  document.querySelectorAll('.cohort-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Scroll fade-in
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── Counter animation
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.textContent.includes('+') ? '+' : '';
+    let current = 0;
+    const step = Math.ceil(target / 30);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current + '+';
+      if (current >= target) clearInterval(timer);
+    }, 40);
+  });
+}
+const heroObserver = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) { animateCounters(); heroObserver.disconnect(); }
+}, { threshold: 0.3 });
+const heroEl = document.getElementById('hero');
+if (heroEl) heroObserver.observe(heroEl);
+
+/* ─── PARTICLE NETWORK CANVAS ─── */
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width  = rect.width  || 520;
+    canvas.height = rect.height || 420;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const NODE_COUNT   = 55;
+  const MAX_DIST     = 130;
+  const TEAL   = [0, 168, 150];
+  const INDIGO = [80, 76, 150];
+
+  const nodes = Array.from({ length: NODE_COUNT }, () => ({
+    x:  Math.random() * canvas.width,
+    y:  Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.45,
+    vy: (Math.random() - 0.5) * 0.45,
+    r:  1.8 + Math.random() * 2.2,
+    // 0=teal, 1=indigo, 2=white
+    kind: Math.random() < 0.5 ? 0 : (Math.random() < 0.6 ? 1 : 2),
+    pulse: Math.random() * Math.PI * 2,
+  }));
+
+  function nodeColor(n, alpha) {
+    const c = n.kind === 0 ? TEAL : n.kind === 1 ? INDIGO : [255,255,255];
+    return `rgba(${c[0]},${c[1]},${c[2]},${alpha})`;
+  }
+
+  let frame = 0;
+  function draw() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Dark background matching hero navy
+    ctx.fillStyle = 'rgba(11,22,41,0.0)';
+    ctx.fillRect(0, 0, W, H);
+
+    frame++;
+    // update
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy; n.pulse += 0.022;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    }
+
+    // edges
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.28;
+          const grad = ctx.createLinearGradient(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
+          grad.addColorStop(0, nodeColor(nodes[i], alpha));
+          grad.addColorStop(1, nodeColor(nodes[j], alpha));
+          ctx.beginPath();
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // nodes
+    for (const n of nodes) {
+      const pulse = 0.7 + 0.3 * Math.sin(n.pulse);
+      const alpha = 0.5 + 0.5 * pulse;
+      // glow
+      const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 3.5);
+      grd.addColorStop(0, nodeColor(n, 0.35 * pulse));
+      grd.addColorStop(1, nodeColor(n, 0));
+      ctx.beginPath();
+      ctx.fillStyle = grd;
+      ctx.arc(n.x, n.y, n.r * 3.5, 0, Math.PI * 2);
+      ctx.fill();
+      // core
+      ctx.beginPath();
+      ctx.fillStyle = nodeColor(n, alpha);
+      ctx.arc(n.x, n.y, n.r * pulse, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 </body>
 </html>
