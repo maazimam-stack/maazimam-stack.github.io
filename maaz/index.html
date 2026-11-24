@@ -957,8 +957,12 @@ function boot(){
     if (p === 'top' && was !== 'top'){ holdReadout(); declutter(); }   /* the diagram can only be measured once it shows */
     return was !== p;
   }
-  function still(fn){ var sb = html.style.scrollBehavior; html.style.scrollBehavior = 'auto'; fn(); html.style.scrollBehavior = sb; }
-  function jumpTop(){ still(function(){ win.scrollTo(0, 0); }); }
+  /* the script's own jumps are instant; the page's smooth scrolling is only for moving within one page */
+  function jump(y){ win.scrollTo({ top: y, left: 0, behavior: 'instant' }); }
+  function jumpTop(){ jump(0); }
+  /* Back and Forward return the reader to the place they left: it is noted on the way out, in that history entry */
+  var back = null;
+  function notePlace(){ try { history.replaceState({ y: Math.round(win.scrollY) }, ''); } catch (e){} }
   /* after a move to another page, a screen reader starts at that page's heading */
   function landing(p){
     if (view.editing) return;
@@ -966,13 +970,13 @@ function boot(){
     if (h){ h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
   }
   function route(how){
-    var h = hashName(), p = pageOf(h);
+    var h = hashName(), p = pageOf(h), y = back; back = null;
     if (!p){ if (page) return; p = 'top'; }   /* a name this site does not use, such as one the host adds: stay on the page shown */
     var moved = setPage(p);
     if (ids().indexOf(h) > -1) show(h);
     var spot = PAGES.indexOf(h) < 0 && !Object.prototype.hasOwnProperty.call(ALIAS, h) && doc.getElementById(h) ? h : null;
     if (how === 'load'){ if (spot) setTimeout(function(){ reveal(spot, true); }, 60); return; }
-    if (spot) reveal(spot, moved); else jumpTop();
+    if (y !== null) jump(y); else if (spot) reveal(spot, moved); else jumpTop();
     if (moved) landing(p);
   }
 
@@ -1145,8 +1149,8 @@ function boot(){
   function current(){ var h = (location.hash || '').slice(1); return ids().indexOf(h) > -1 ? h : null; }
   function reveal(id, instant){
     var el = doc.getElementById(id); if (!el) return;
-    if (instant || reduce()) still(function(){ el.scrollIntoView({ block: 'start' }); });   /* arriving from another page: no long glide */
-    else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /* arriving from another page: no long glide */
+    el.scrollIntoView({ block: 'start', behavior: instant || reduce() ? 'instant' : 'smooth' });
   }
 
   /* ---- light and dark: the page opens light for every reader, whatever the device or the host is set to.
@@ -1213,6 +1217,8 @@ function boot(){
   doc.addEventListener('keydown', function(){ touch = false; }, true);
   doc.addEventListener('click', function(e){
     var tg = e.target; if (!tg || !tg.closest) return;
+    back = null;
+    if (!view.editing && tg.closest('a[href^="#"]')) notePlace();
     if (view.editing && site.contains(tg)){
       var mk = tg.closest('.stage .mark'), bs = tg.closest('.stage .base'), cn = tg.closest('.stage .corner');
       if (mk){ e.preventDefault(); if (!justDragged) togglePin({ type: 'lever', id: mk.getAttribute('data-p') }); return; }
@@ -1257,6 +1263,7 @@ function boot(){
     show(id);
     if (hashName() !== id){ location.hash = id; } else { reveal(id, setPage('projects')); }
   });
+  win.addEventListener('popstate', function(e){ var s = e.state; back = s && typeof s.y === 'number' ? s.y : null; });
   win.addEventListener('hashchange', function(){ route('nav'); });
 
   /* ====================== editing, for someone who can publish this page ====================== */
