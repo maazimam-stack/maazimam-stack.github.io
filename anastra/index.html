@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Anastra House</title><meta name="description" content="A clinician-led house for health ventures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5EEE6}
+a{color:#16110F}a:hover{color:#871C1C}
+@keyframes draw{from{stroke-dashoffset:300}to{stroke-dashoffset:0}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes drift{from{transform:translateY(0) rotate(0deg)}to{transform:translateY(-18px) rotate(1.5deg)}}
+@keyframes trifade{0%,100%{opacity:.45}33%{opacity:1}}
+.tri1,.tri2,.tri3{animation:trifade 9s ease-in-out infinite}.tri2{animation-delay:3s}.tri3{animation-delay:6s}
+.draw{stroke-dasharray:300;animation:draw 2.6s ease-out both}
+.pulse{animation:pulse 3.2s ease-in-out infinite}
+.marquee{animation:marquee 46s linear infinite}
+.drift{animation:drift 11s ease-in-out infinite alternate}
+.lift{transition:transform .5s ease}article:hover .lift{transform:scale(1.08) rotate(-2deg)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head><body><div style="background:#F5EEE6;color:#16110F;font-family:'Newsreader',Georgia,serif;overflow:hidden">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<pattern id="hatchBone" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#F5EEE6" stroke-width="1"></line></pattern>
+<pattern id="hatchInk" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#16110F" stroke-width="1"></line></pattern>
+<symbol id="vessels" viewBox="0 0 600 600"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M-10 540 C120 515 205 440 262 345 C302 280 362 222 470 182 C522 162 562 152 610 150" stroke-width="11"></path><path d="M-10 548 C118 524 200 450 256 352" stroke-width="1"></path><path d="M262 345 C232 262 240 182 292 102" stroke-width="6"></path><path d="M292 102 C302 70 322 40 352 6" stroke-width="3"></path><path d="M292 102 C262 82 232 62 190 52" stroke-width="3"></path><path d="M470 182 C482 120 520 80 584 58" stroke-width="5"></path><path d="M470 182 C502 222 542 250 610 262" stroke-width="4"></path><path d="M182 442 C152 382 102 342 30 322" stroke-width="5"></path><path d="M30 322 C10 302 0 282 -12 250" stroke-width="2"></path><path d="M100 344 C90 302 96 262 122 222" stroke-width="2.5"></path><path d="M122 222 C152 192 202 182 244 194" stroke-width="2"></path><path d="M362 222 C382 262 422 292 472 302" stroke-width="3"></path><path d="M472 302 C502 322 522 362 532 422" stroke-width="2"></path><path d="M422 292 C442 252 472 242 502 252 C528 262 548 236 560 206" stroke-width="2"></path><path d="M532 422 C540 470 520 520 480 560" stroke-width="1.5"></path><path d="M182 442 C200 500 240 540 300 600" stroke-width="3"></path></g></symbol>
+<symbol id="mark" viewBox="0 0 120 120"><g fill="none" stroke="currentColor"><path d="M14 100 L60 18 L106 100" stroke-width="9" stroke-linejoin="miter"></path><path d="M14 100 C40 119 80 119 106 100" stroke-width="4"></path><path d="M14 100 C40 89 80 89 106 100" stroke-width="4"></path></g><path d="M60 56 L62.6 63.4 L70 66 L62.6 68.6 L60 76 L57.4 68.6 L50 66 L57.4 63.4 Z" fill="currentColor"></path></symbol>
+<symbol id="lg-interval" viewBox="0 0 48 48"><path d="M9 9 V39 M39 9 V39" fill="none" stroke="currentColor" stroke-width="4"></path><path d="M13 24 H17 M31 24 H35" fill="none" stroke="currentColor" stroke-width="2"></path><circle cx="24" cy="24" r="6.5" fill="currentColor"></circle></symbol>
+<symbol id="lg-errand" viewBox="0 0 48 48"><g transform="rotate(-38 24 24)"><rect x="7" y="16" width="34" height="16" rx="8" fill="none" stroke="currentColor" stroke-width="3.5"></rect><path d="M24 16 H33 A8 8 0 0 1 33 32 H24 Z" fill="currentColor"></path></g></symbol>
+<symbol id="lg-bridge" viewBox="0 0 48 48"><g fill="none" stroke="currentColor"><path d="M3 34 H45" stroke-width="3.5"></path><path d="M7 34 C13 13 35 13 41 34" stroke-width="3.5"></path><path d="M16 22.5 V34 M24 19.5 V34 M32 22.5 V34" stroke-width="2"></path></g></symbol>
+<symbol id="lg-rmc" viewBox="0 0 48 48"><path d="M11 43 V21 A13 13 0 0 1 37 21 V43 Z" fill="none" stroke="currentColor" stroke-width="2.5"></path><path d="M15 31 V21 A9 9 0 0 1 23 12.1 V31 Z" fill="currentColor"></path><path d="M25.5 12.4 A9 9 0 0 1 33 21 V31 H25.5 Z" fill="none" stroke="currentColor" stroke-width="2"></path><rect x="15" y="33" width="8" height="7" fill="currentColor"></rect><rect x="25.5" y="33" width="7.5" height="7" fill="currentColor"></rect></symbol>
+<symbol id="lg-twin" viewBox="0 0 48 48"><circle cx="18" cy="24" r="11" fill="currentColor"></circle><circle cx="30" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="3"></circle></symbol>
+</defs>
+</svg>
+
+<!-- Hero -->
+<header style="background:#871C1C;color:#F5EEE6;position:relative">
+<svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.10"><rect width="100%" height="100%" fill="url(#hatchBone)"></rect></svg>
+<svg class="drift" aria-hidden="true" style="position:absolute;right:-8%;top:-4%;width:min(70vw,900px);height:min(70vw,900px);color:#F5EEE6;opacity:0.22"><use href="#vessels"></use></svg>
+<div style="max-width:1312px;margin:0 auto;padding:28px 4vw 128px;box-sizing:border-box;position:relative">
+<div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center">
+<a href="#" style="display:flex;align-items:center;gap:12px;color:#F5EEE6;text-decoration:none"><svg width="30" height="30" aria-hidden="true"><use href="#mark"></use></svg><span style="font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;font-size:20px">ANASTRA <span style="font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:11px;letter-spacing:5px">HOUSE</span></span></a>
+<nav aria-label="Main" style="display:flex;flex-wrap:wrap;gap:28px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1.5px">
+<a href="#mission" style="color:#F5EEE6;text-decoration:none">MISSION</a><a href="#portfolio" style="color:#F5EEE6;text-decoration:none">PORTFOLIO</a><a href="#lab" style="color:#F5EEE6;text-decoration:none">LAB</a><a href="#people" style="color:#F5EEE6;text-decoration:none">PEOPLE</a><a href="team/" style="color:#F5EEE6;text-decoration:none">TEAM ↗</a>
+</nav>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:48px;margin-top:120px">
+<div style="flex:999 1 560px;min-width:0">
+<h1 style="margin:0;max-width:15ch;font-weight:300;font-size:clamp(48px,6.4vw,94px);line-height:1.02;letter-spacing:-1.5px">Building <em>a route around</em> healthcare's iron triangle.</h1>
+<p style="margin:36px 0 0;max-width:34rem;font-size:22px;line-height:1.5">A clinician-led house for health ventures. We build small tools for cost, quality and access at once, instead of trading one for another.</p>
+<div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:44px">
+<a href="#portfolio" style="padding:17px 34px;border-radius:999px;background:#F5EEE6;color:#16110F;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1.5px">SEE THE PORTFOLIO</a>
+<a href="#mission" style="padding:16px 33px;border-radius:999px;border:1px solid #F5EEE6;color:#F5EEE6;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1.5px">OUR MISSION + PROCESS</a>
+</div>
+</div>
+<svg viewBox="0 0 400 380" fill="none" role="img" aria-label="The Anastra mark, with cost, access and quality on its three sides" style="flex:1 1 300px;max-width:460px;overflow:visible">
+<path id="sideL" d="M28 330 L200 28" fill="none"></path>
+<path id="sideR" d="M200 28 L372 330" fill="none"></path>
+<path id="sideB" d="M28 330 L372 330" fill="none"></path>
+<path d="M200 28 L372 330 L28 330 Z" stroke="#F5EEE6" stroke-opacity="0.35" stroke-width="1"></path>
+<g font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="4" fill="#F5EEE6" text-anchor="middle">
+<text class="tri1" dy="-10"><textPath href="#sideL" startOffset="50%">COST</textPath></text>
+<text class="tri2" dy="-10"><textPath href="#sideR" startOffset="50%">ACCESS</textPath></text>
+<text class="tri3" dy="24"><textPath href="#sideB" startOffset="50%">QUALITY</textPath></text>
+</g>
+<g transform="translate(80 86) scale(2)">
+<path d="M14 100 L60 18 L106 100" stroke="#F5EEE6" stroke-width="9" stroke-linejoin="miter"></path>
+<path class="draw" d="M14 100 C40 119 80 119 106 100" stroke="#F5EEE6" stroke-width="4"></path>
+<path class="draw" d="M14 100 C40 89 80 89 106 100" stroke="#EAD7CC" stroke-width="4"></path>
+<path class="pulse" d="M60 56 L62.6 63.4 L70 66 L62.6 68.6 L60 76 L57.4 68.6 L50 66 L57.4 63.4 Z" fill="#F5EEE6"></path>
+</g>
+</svg>
+</div>
+</div>
+</header>
+
+<!-- Mission -->
+<section id="mission" style="position:relative;background:#EAD7CC">
+<svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06"><rect width="100%" height="100%" fill="url(#hatchInk)"></rect></svg>
+<svg aria-hidden="true" style="position:absolute;left:-10%;bottom:-20%;width:620px;height:620px;color:#871C1C;opacity:0.12"><use href="#vessels"></use></svg>
+<div style="max-width:1312px;margin:0 auto;padding:128px 4vw;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:64px;position:relative">
+<p style="flex:999 1 520px;min-width:0;margin:0;font-size:clamp(28px,3vw,42px);line-height:1.28;font-weight:300">Healthcare keeps trading one corner for another: cheaper care that's harder to reach, better care that costs more. <em style="color:#871C1C">We build the route around it</em>, starting with the time between visits, where patients spend almost all of their lives.</p>
+<div style="flex:1 1 340px;display:flex;flex-direction:column;gap:32px;border-left:1px solid #16110F;padding-left:40px">
+<div><div style="font-size:60px;line-height:1;color:#871C1C;font-weight:300">01</div><h2 style="margin:6px 0 4px;font-size:27px;font-weight:400">Clinician-built</h2><p style="margin:0;font-size:17px;line-height:1.55;color:#3E3531">Every product starts with a problem we've seen in clinic, not in a pitch deck.</p></div>
+<div><div style="font-size:60px;line-height:1;color:#871C1C;font-weight:300">02</div><h2 style="margin:6px 0 4px;font-size:27px;font-weight:400">Evidence-first</h2><p style="margin:0;font-size:17px;line-height:1.55;color:#3E3531">We say plainly what is planned, built or measured, and test against real outcomes.</p></div>
+<div><div style="font-size:60px;line-height:1;color:#871C1C;font-weight:300">03</div><h2 style="margin:6px 0 4px;font-size:27px;font-weight:400">Rapid iteration</h2><p style="margin:0;font-size:17px;line-height:1.55;color:#3E3531">Working tools in weeks, refined with the patients and clinicians who use them.</p></div>
+</div>
+</div>
+</section>
+
+<!-- Portfolio -->
+<section id="portfolio" style="max-width:1312px;margin:0 auto;padding:128px 4vw;box-sizing:border-box">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;border-top:1px solid #16110F;padding-top:24px;margin-bottom:40px">
+<h2 style="margin:0;font-size:clamp(40px,4.4vw,64px);font-weight:300">Portfolio</h2>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1.5px;color:#4A403B">FIVE PRODUCTS · BUILT IN THE HOUSE</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:24px">
+
+<article style="flex:1 1 340px;background:#FFFFFF;border:1px solid #E3D6CA;display:flex;flex-direction:column;overflow:hidden">
+<div style="height:260px;background:#871C1C;color:#F5EEE6;position:relative;display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.12"><rect width="100%" height="100%" fill="url(#hatchBone)"></rect></svg><svg class="lift" width="112" height="112" role="img" aria-label="Interval logo"><use href="#lg-interval"></use></svg><span style="position:absolute;left:28px;bottom:22px;font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;font-size:clamp(20px,1.9vw,26px)">INTERVAL</span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:16px;flex:1"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#871C1C">IN DEVELOPMENT</span><p style="margin:0;font-size:19px;line-height:1.5;flex:1">A between-visit symptom diary that turns how patients feel day to day into something their clinician can use.</p><a href="../interval/" style="align-self:flex-start;padding:12px 24px;border-radius:999px;background:#EAD7CC;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px">LEARN MORE</a></div>
+</article>
+
+<article style="flex:1 1 340px;background:#FFFFFF;border:1px solid #E3D6CA;display:flex;flex-direction:column;overflow:hidden">
+<div style="height:260px;background:#16110F;color:#F5EEE6;position:relative;display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.10"><rect width="100%" height="100%" fill="url(#hatchBone)"></rect></svg><svg class="lift" width="112" height="112" role="img" aria-label="Errand Rx logo" style="color:#D9A27E"><use href="#lg-errand"></use></svg><span style="position:absolute;left:28px;bottom:22px;font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;font-size:clamp(20px,1.9vw,26px)">ERRAND RX</span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:16px;flex:1"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#871C1C">PROTOTYPE</span><p style="margin:0;font-size:19px;line-height:1.5;flex:1">Gets students' ADHD prescriptions filled every month: reads the prescription, calls the clinic and pharmacies, finds stock and moves it. The student just texts.</p><a href="team/" style="align-self:flex-start;padding:12px 24px;border-radius:999px;background:#EAD7CC;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px">TEAM ACCESS</a></div>
+</article>
+
+<article style="flex:1 1 340px;background:#FFFFFF;border:1px solid #E3D6CA;display:flex;flex-direction:column;overflow:hidden">
+<div style="height:260px;background:#EAD7CC;color:#16110F;position:relative;display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08"><rect width="100%" height="100%" fill="url(#hatchInk)"></rect></svg><svg class="lift" width="112" height="112" role="img" aria-label="Bridge logo" style="color:#871C1C"><use href="#lg-bridge"></use></svg><span style="position:absolute;left:28px;bottom:22px;font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;font-size:clamp(20px,1.9vw,26px)">BRIDGE</span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:16px;flex:1"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#871C1C">PROTOTYPE</span><p style="margin:0;font-size:19px;line-height:1.5;flex:1">Carries international students' health records across borders: reads a vaccination record in any language, checks it against campus requirements and prepares the forms.</p><a href="team/" style="align-self:flex-start;padding:12px 24px;border-radius:999px;background:#EAD7CC;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px">TEAM ACCESS</a></div>
+</article>
+
+<article style="flex:1 1 340px;background:#FFFFFF;border:1px solid #E3D6CA;display:flex;flex-direction:column;overflow:hidden">
+<div style="height:260px;background:#F5EEE6;border-bottom:1px solid #E3D6CA;color:#16110F;position:relative;display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06"><rect width="100%" height="100%" fill="url(#hatchInk)"></rect></svg><svg class="lift" width="112" height="112" role="img" aria-label="RateMyCrib logo"><use href="#lg-rmc"></use></svg><span style="position:absolute;left:28px;bottom:22px;font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;font-size:clamp(20px,1.9vw,26px)">RATEMY<span style="color:#871C1C">CRIB</span></span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:16px;flex:1"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#871C1C">LIVE</span><p style="margin:0;font-size:19px;line-height:1.5;flex:1">Honest reviews of Champaign-Urbana landlords, written by the students who rented from them.</p><a href="https://ratemycrib.net" style="align-self:flex-start;padding:12px 24px;border-radius:999px;background:#EAD7CC;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px">VISIT THE SITE</a></div>
+</article>
+
+<article style="flex:1 1 340px;background:#FFFFFF;border:1px solid #E3D6CA;display:flex;flex-direction:column;overflow:hidden">
+<div style="height:260px;background:#5E1212;color:#F5EEE6;position:relative;display:flex;align-items:center;justify-content:center"><svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.12"><rect width="100%" height="100%" fill="url(#hatchBone)"></rect></svg><svg class="lift" width="112" height="112" role="img" aria-label="Digital Twin logo"><use href="#lg-twin"></use></svg><span style="position:absolute;left:28px;bottom:22px;font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;font-size:clamp(20px,1.9vw,26px)">DIGITAL TWIN</span></div>
+<div style="padding:28px;display:flex;flex-direction:column;gap:16px;flex:1"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#871C1C">PROTOTYPE</span><p style="margin:0;font-size:19px;line-height:1.5;flex:1">A living model of a patient's cardiovascular risk, with a dashboard for their cardiologist. Heart first, then the rest.</p><a href="team/" style="align-self:flex-start;padding:12px 24px;border-radius:999px;background:#EAD7CC;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px">TEAM ACCESS</a></div>
+</article>
+</div>
+</section>
+
+<!-- Lab, Ventures, People -->
+<section id="lab" style="background:#16110F;color:#F5EEE6;position:relative">
+<svg aria-hidden="true" style="position:absolute;right:-6%;top:-10%;width:760px;height:760px;color:#D9A27E;opacity:0.16"><use href="#vessels"></use></svg>
+<div style="max-width:1312px;margin:0 auto;padding:128px 4vw;box-sizing:border-box;position:relative">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+<div style="border:1px solid #5A4E47;background:rgba(22,17,15,0.6);padding:40px;display:flex;flex-direction:column;gap:20px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:5px;color:#D9A27E">ANASTRA LAB</span><h2 style="margin:0;font-size:34px;font-weight:300;line-height:1.2">Research, and the tools behind it.</h2><p style="margin:0;font-size:18px;line-height:1.55;color:#CFC3B8">Population studies, published work and the research agent we use to run them.</p><a href="#" style="align-self:flex-start;padding:12px 24px;border-radius:999px;border:1px solid #F5EEE6;color:#F5EEE6;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px">COMING SOON</a></div>
+<div style="border:1px solid #5A4E47;background:rgba(22,17,15,0.6);padding:40px;display:flex;flex-direction:column;gap:20px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:5px;color:#D9A27E">ANASTRA VENTURES</span><h2 style="margin:0;font-size:34px;font-weight:300;line-height:1.2">Backing other clinician founders.</h2><p style="margin:0;font-size:18px;line-height:1.55;color:#CFC3B8">Not yet. When it opens, it will be announced here first.</p><a href="#" style="align-self:flex-start;padding:12px 24px;border-radius:999px;border:1px solid #F5EEE6;color:#F5EEE6;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px">COMING LATER</a></div>
+<div id="people" style="border:1px solid #5A4E47;background:rgba(22,17,15,0.6);padding:40px;display:flex;flex-direction:column;gap:20px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:5px;color:#D9A27E">PEOPLE</span><div><div style="font-size:28px">Maaz Imam</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;margin-top:4px;color:#CFC3B8">CO-FOUNDER · MD CANDIDATE</div></div><div><div style="font-size:28px">Kenan Najjar</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;margin-top:4px;color:#CFC3B8">CO-FOUNDER · MD CANDIDATE</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- Join -->
+<section style="background:#EAD7CC"><div style="max-width:1312px;margin:0 auto;padding:72px 4vw;box-sizing:border-box;display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between">
+<p style="margin:0;flex:1 1 420px;font-size:24px;line-height:1.45"><em>Joining the team?</em> Demos, business analyses and open roles live in the team hub. You'll need the password we sent you.</p>
+<a href="team/" style="padding:17px 34px;border-radius:999px;background:#871C1C;color:#F5EEE6;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1.5px">OPEN THE TEAM HUB</a></div></section>
+
+<!-- Footer -->
+<footer style="background:#871C1C;color:#F5EEE6;position:relative">
+<svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08"><rect width="100%" height="100%" fill="url(#hatchBone)"></rect></svg>
+<div style="max-width:1312px;margin:0 auto;padding:96px 4vw 32px;box-sizing:border-box;position:relative">
+<div style="font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;font-size:clamp(64px,13.5vw,194px);line-height:0.85;letter-spacing:-0.02em">ANASTRA</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:clamp(14px,1.8vw,24px);letter-spacing:0.6em;margin-top:16px">HOUSE</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:80px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.8">
+<div style="border-top:1px solid #F5EEE6;padding-top:14px">Champaign–Urbana, Illinois</div>
+<div style="border-top:1px solid #F5EEE6;padding-top:14px">The Anastra family:<br>Anastra House<br>Anastra Lab (soon)<br>Anastra Ventures (later)</div>
+<div style="border-top:1px solid #F5EEE6;padding-top:14px">[YOUR EMAIL]<br><a href="#" style="color:#F5EEE6">LinkedIn</a></div>
+<div style="border-top:1px solid #F5EEE6;padding-top:14px">© 2026 Anastra House</div>
+</div>
+<a href="#" style="display:inline-block;margin-top:56px;color:#F5EEE6;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-decoration:none">BACK TO TOP ↑</a>
+</div>
+</footer>
+</div>
+</body></html>
